@@ -26,7 +26,13 @@ Sovellus toteutetaan selaimessa toimivana React-sovelluksena. Suunnitelmaan ei t
 
 ## Nykyinen tila
 
-React- ja Vite-pohja on alustettu `portfolio/`-kansioon. Sovellus näyttää tällä hetkellä tekstin ”Hei maailma”. Tailwind CSS, React Router ja Lucide React on asennettu, mutta niiden käyttöönotto sovelluksessa on vielä tekemättä. Sivut ja kielenvaihto ovat suunnitteluvaiheessa.
+React- ja Vite-pohja sekä Tailwind CSS ovat käytössä. Sovelluksessa on yhteinen navigaatio ja alatunniste sekä reitit etusivulle, projekteihin, esittelyyn ja yhteystietoihin. Tuntemattomille osoitteille näytetään ilmoitus ja linkki etusivulle.
+
+Etusivu esittelee Eemil Hakalan ja sisältää muokattavan esittelytekstiluonnoksen, linkit projekteihin ja yhteystietoihin sekä CSS:llä toteutetun pyöreän profiilikuvan paikkamerkin. Asettelu on leveällä näytöllä kaksipalstainen ja pienellä näytöllä allekkainen.
+
+Projektilista (`/projects`) ja projektisivu (`/projects/:slug`) käyttävät yhteistä `portfolio/src/data/projects.js`-tiedostoa. Mukana on yksi selvästi merkitty esimerkkiprojekti osoitteessa `/projects/example-project`, kuvan paikkamerkki ja esimerkkiteknologiat. Projektisivulla on yksi yhteenveto ja tuki valinnaisille GitHub- ja demolinkeille. Tuntematon projektiosoite näyttää ilmoituksen ja paluulinkin listaan. Esittely- ja yhteystietosivut ovat vielä väliaikaista sisältöä.
+
+Käyttöliittymän oletuskieli on suomi. FI / EN -painikkeet vaihtavat myös saavutettavuustekstit ja välilehden otsikon ilman sivun uudelleenlatausta. Käyttäjän valinta muistetaan selaimen `localStorage`ssa, jos tallennus on käytettävissä. Komponentit, funktiot ja muut koodin tunnisteet nimetään englanniksi. Etusivun linkkien nuolikuvakkeet tulevat Lucide Reactista.
 
 ## Kehityskomennot
 
@@ -55,7 +61,7 @@ npm run preview
 - `portfolio/` — sovelluksen lähdekoodi, asetukset ja riippuvuudet.
 - `design-references/` — ulkoasun referenssikuvat.
 - `PLAN.md` — lyhyt rakennussuunnitelma.
-- `DOCS.md` — merkittävien toteutusten dokumentaatio; tällä hetkellä tyhjä.
+- `DOCS.md` — merkittävien toteutusten dokumentaatio.
 - `STRUCTURE.md` — ehdotus tavoitellusta kansiorakenteesta, ei nykyisen rakenteen kuvaus.
 - `AGENTS.md` — projektin työskentelyohjeet ja muutosten hyväksymiskäytäntö.
 

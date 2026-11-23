@@ -1,0 +1,66 @@
+export const en = {
+  siteName: 'Eemil Hakala',
+  skipToContent: 'Skip to content',
+  placeholderLabel: 'Placeholder content',
+  navigation: {
+    label: 'Main navigation',
+    home: 'Home',
+    projects: 'Projects',
+    about: 'About',
+    contact: 'Contact',
+  },
+  language: {
+    label: 'Language',
+    fi: 'Switch to Finnish',
+    en: 'Switch to English',
+  },
+  footer: {
+    text: 'Explore the projects and the person behind them.',
+  },
+  pages: {
+    home: {
+      title: 'Home',
+      welcome: 'Hello and welcome',
+      greeting: "Hi, I'm",
+      role: 'Software development student',
+      description: 'I develop my skills by building projects and learning through hands-on work. In this portfolio, you can explore my work, the technologies I use and the person behind them.',
+      projectsLink: 'My projects',
+      contactLink: 'Contact me',
+      photoPlaceholder: 'Profile photo coming soon',
+      photoCaption: 'The person behind the work.',
+    },
+    projects: {
+      title: 'Projects',
+      eyebrow: 'Explore the projects',
+      description: 'Project descriptions, technologies and detailed introductions. The current entries are clearly marked example content.',
+      exampleLabel: 'Example content',
+      projectLabel: 'Project',
+      imagePlaceholder: 'Project screenshot coming soon',
+      technologiesLabel: 'Technologies',
+      viewProject: 'View project',
+      emptyMessage: 'Projects will be added later.',
+    },
+    projectDetail: {
+      backToProjects: 'Back to projects',
+      summaryTitle: 'Summary',
+      exampleNote: 'Example content — real project information and a screenshot will be added later.',
+      githubLink: 'View source on GitHub',
+      demoLink: 'Open demo',
+      notFoundTitle: 'Project not found.',
+      notFoundDescription: 'No project was found at this address. You can return to the project list using the link below.',
+    },
+    about: {
+      title: 'About.',
+      description: 'An introduction covering background, interests and skills will appear here.',
+    },
+    contact: {
+      title: 'Contact.',
+      description: 'An email address and selected profile links will appear here.',
+    },
+    notFound: {
+      title: 'Page not found.',
+      description: 'There is no page at this address. You can return to the home page using the link below.',
+      backHome: 'Back to home',
+    },
+  },
+}

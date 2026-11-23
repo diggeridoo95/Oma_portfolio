@@ -1,0 +1,66 @@
+export const fi = {
+  siteName: 'Eemil Hakala',
+  skipToContent: 'Siirry sisältöön',
+  placeholderLabel: 'Väliaikainen sisältö',
+  navigation: {
+    label: 'Päänavigaatio',
+    home: 'Etusivu',
+    projects: 'Projektit',
+    about: 'Esittely',
+    contact: 'Yhteystiedot',
+  },
+  language: {
+    label: 'Kieli',
+    fi: 'Vaihda suomeksi',
+    en: 'Vaihda englanniksi',
+  },
+  footer: {
+    text: 'Tutustu projekteihin ja tekijään.',
+  },
+  pages: {
+    home: {
+      title: 'Etusivu',
+      welcome: 'Hei ja tervetuloa',
+      greeting: 'Hei, olen',
+      role: 'Ohjelmistokehityksen opiskelija',
+      description: 'Kehitän osaamistani rakentamalla projekteja ja oppimalla uutta tekemisen kautta. Tässä portfoliossa pääset tutustumaan töihini, käyttämiini teknologioihin ja minuun niiden takana.',
+      projectsLink: 'Projektini',
+      contactLink: 'Ota yhteyttä',
+      photoPlaceholder: 'Profiilikuva tulossa',
+      photoCaption: 'Tekijä töiden takana.',
+    },
+    projects: {
+      title: 'Projektit',
+      eyebrow: 'Tutustu projekteihin',
+      description: 'Projektien kuvaukset, käytetyt teknologiat ja tarkemmat esittelyt. Sisältö on toistaiseksi merkittyä esimerkkisisältöä.',
+      exampleLabel: 'Esimerkkisisältö',
+      projectLabel: 'Projekti',
+      imagePlaceholder: 'Projektikuva tulossa',
+      technologiesLabel: 'Teknologiat',
+      viewProject: 'Tutustu projektiin',
+      emptyMessage: 'Projekteja lisätään myöhemmin.',
+    },
+    projectDetail: {
+      backToProjects: 'Takaisin projekteihin',
+      summaryTitle: 'Yhteenveto',
+      exampleNote: 'Esimerkkisisältöä — oikean projektin tiedot ja kuva lisätään myöhemmin.',
+      githubLink: 'Katso lähdekoodi GitHubissa',
+      demoLink: 'Avaa demo',
+      notFoundTitle: 'Projektia ei löytynyt.',
+      notFoundDescription: 'Tällä osoitteella ei löytynyt projektia. Voit palata projektilistaan alla olevasta linkistä.',
+    },
+    about: {
+      title: 'Esittely.',
+      description: 'Tähän tulee esittely taustasta, kiinnostuksenkohteista ja osaamisesta.',
+    },
+    contact: {
+      title: 'Yhteystiedot.',
+      description: 'Tähän tulevat sähköpostiosoite ja valitut profiililinkit.',
+    },
+    notFound: {
+      title: 'Sivua ei löytynyt.',
+      description: 'Osoitteessa ei ole sivua. Voit palata etusivulle alla olevasta linkistä.',
+      backHome: 'Palaa etusivulle',
+    },
+  },
+}
