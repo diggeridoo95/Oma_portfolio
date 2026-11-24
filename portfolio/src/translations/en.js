@@ -15,7 +15,7 @@ export const en = {
     en: 'Switch to English',
   },
   footer: {
-    text: 'Explore the projects and the person behind them.',
+    text: '© 2026 Eemil Hakala.',
   },
   pages: {
     home: {
@@ -26,9 +26,9 @@ export const en = {
         evening: 'Good evening, traveler!',
         night: 'Zzz.',
       },
-      greeting: "Hi, I'm",
-      role: 'Software development student',
-      description: 'I develop my skills by building projects and learning through hands-on work. In this portfolio, you can explore my work, the technologies I use and the person behind them.',
+      greeting: '',
+      role: 'IT engineering student',
+      description: "I'm an IT engineering student interested in software development and practical problem-solving. In this portfolio, I showcase my projects and skills and share a little about myself.",
       projectsLink: 'My projects',
       contactLink: 'Contact me',
       photoAlt: 'Eemil Hakala wearing a straw hat.',
@@ -37,7 +37,7 @@ export const en = {
     projects: {
       title: 'Projects',
       eyebrow: 'Explore the projects',
-      description: 'Explore my projects, how they are built and the technologies I use.',
+      description: 'An overview of my projects and how they were built.',
       statuses: {
         inProgress: 'In progress',
         mvpReady: 'MVP ready',
@@ -61,14 +61,20 @@ export const en = {
     },
     about: {
       title: 'About',
-      heading: 'A little about me.',
-      description: 'An introduction to my background, studies and interests will appear here. This text will be replaced with my own introduction later.',
+      heading: 'About me',
+      description: `I'm Eemil, a 23-year-old from Seinäjoki and a third-year IT engineering student at Seinäjoki University of Applied Sciences. I'm particularly interested in software development and web applications. I enjoy learning new things, solving problems and building practical digital solutions.
+
+My work experience includes customer service, leading activities for children and industrial production work. These different work environments have strengthened my teamwork skills, sense of responsibility and ability to work with a wide range of people.
+
+I'm currently looking for an internship in my field in the Seinäjoki area, where I can apply what I've learned in my studies, develop my professional skills and learn from more experienced software developers. As someone from South Ostrobothnia, I'd be glad to take the next step in my career in my home region.
+
+I'm sociable by nature and get along well with a wide range of people. In my free time, I go to the gym, play guitar and produce music.`,
       projectsLink: 'Explore my projects',
       photoAlt: 'Eemil Hakala giving a presentation in front of a screen.',
     },
     contact: {
       title: 'Contact',
-      heading: "Let's connect.",
+      heading: 'Contact details',
       description: 'You can find my email address and links to my GitHub and LinkedIn profiles here.',
       emailLabel: 'Email',
       githubLabel: 'GitHub',

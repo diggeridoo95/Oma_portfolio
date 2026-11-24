@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { LanguageContext } from '../context/LanguageContext.js'
 
+const statusDotClasses = {
+  inProgress: 'bg-copper',
+  mvpReady: 'bg-emerald-300',
+  prototype: 'bg-champagne',
+  completed: 'bg-emerald-500',
+}
+
 const ProjectCard = ({ project }) => {
   const { language, translations } = useContext(LanguageContext)
   const content = project.content[language]
@@ -23,7 +30,11 @@ const ProjectCard = ({ project }) => {
         </div>
       )}
       <div className="min-w-0">
-        <p className="mb-3 text-sm font-medium text-champagne">
+        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-sm font-medium text-primary">
+          <span
+            aria-hidden="true"
+            className={`h-2 w-2 shrink-0 rounded-full ${statusDotClasses[project.status] ?? 'bg-secondary'}`}
+          />
           {labels.statuses[project.status] ?? labels.projectLabel}
         </p>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{content.title}</h2>

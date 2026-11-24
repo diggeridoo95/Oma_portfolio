@@ -28,7 +28,7 @@ export const fi = {
       },
       greeting: '',
       role: 'Tietotekniikan insinööriopiskelija',
-      description: 'Olen tietotekniikan insinööriopiskelija ja kehitän osaamistani käytännön projektien kautta. Tästä portfoliosta löydät pienimuotosia projektejani sekä yleiskatsauksen minusta.',
+      description: 'Olen tietotekniikan insinööriopiskelija, jota kiinnostavat ohjelmistokehitys ja käytännön ongelmanratkaisu. Tässä portfoliossa esittelen projektejani, osaamistani ja kerron hieman itsestäni.',
       projectsLink: 'Projektini',
       contactLink: 'Ota yhteyttä',
       photoAlt: 'Eemil Hakala olkihattu päässä.',
@@ -37,7 +37,7 @@ export const fi = {
     projects: {
       title: 'Projektit',
       eyebrow: 'Tutustu projekteihin',
-      description: 'Tutustu projekteihini, niiden toteutuksiin ja käyttämiini teknologioihin.',
+      description: 'Katsaus projekteihini ja niiden toteutuksiin.',
       statuses: {
         inProgress: 'Kehitteillä',
         mvpReady: 'MVP valmis',
@@ -62,11 +62,13 @@ export const fi = {
     about: {
       title: 'Esittely',
       heading: 'Minusta',
-      description: `Olen Eemil, 23-vuotias seinäjokelainen ja kolmannen vuoden tietotekniikan insinööriopiskelija Seinäjoen ammattikorkeakoulussa. Minua kiinnostavat erityisesti ohjelmistokehitys ja verkkosovellukset. Haluan rakentaa käytännöllisiä ratkaisuja, jotka helpottavat tekemistä ja tuottavat hyviä tuloksia.
+      description: `Olen Eemil, 23-vuotias seinäjokelainen ja kolmannen vuoden tietotekniikan insinööriopiskelija Seinäjoen ammattikorkeakoulussa. Minua kiinnostavat erityisesti ohjelmistokehitys ja verkkosovellukset. Pidän uusien asioiden oppimisesta, ongelmanratkaisusta ja käytännöllisten digitaalisten ratkaisujen rakentamisesta.
 
-Työkokemusta minulle on kertynyt asiakaspalvelusta, lasten ohjaamisesta ja tehtaan tuotannosta. Erilaiset työympäristöt ovat opettaneet minulle yhteistyötaitoja, prosessien hallintaa ja harkittua päätöksentekoa. Nyt etsin oman alan harjoittelupaikkaa Seinäjoen seudulta, jossa pääsisin soveltamaan opinnoissa kertynyttä osaamistani ja oppimaan lisää ohjelmistokehityksestä. Eteläpohjalaisena olisi hienoa ottaa seuraava askel työelämään omalla kotiseudulla.
+Työkokemusta minulle on kertynyt asiakaspalvelusta, lasten ohjaamisesta ja teollisuuden tuotantotehtävistä. Erilaiset työympäristöt ovat kehittäneet yhteistyötaitojani, vastuullisuuttani ja kykyäni toimia erilaisten ihmisten kanssa.
 
-Olen sosiaalinen ja tulen luontevasti toimeen erilaisten ihmisten kanssa. Vapaa-ajallani käyn kuntosalilla, soitan kitaraa ja tuotan musiikkia.`,
+Tällä hetkellä etsin oman alani harjoittelupaikkaa Seinäjoen seudulta, jossa pääsisin soveltamaan opinnoissa kertynyttä osaamistani, kehittämään ammattitaitoani ja oppimaan kokeneemmilta ohjelmistokehittäjiltä. Eteläpohjalaisena minulle olisi hienoa ottaa seuraava askel työelämässä omalla kotiseudullani.
+
+Luonteeltani olen sosiaalinen ja tulen hyvin toimeen erilaisten ihmisten kanssa. Vapaa-ajallani käyn kuntosalilla, soitan kitaraa ja tuotan musiikkia.`,
       projectsLink: 'Tutustu projekteihini',
       photoAlt: 'Eemil Hakala pitämässä esitystä näytön edessä.',
     },

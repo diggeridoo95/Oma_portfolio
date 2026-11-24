@@ -9,7 +9,6 @@ const Projects = () => {
 
   return (
     <section aria-labelledby="projects-heading">
-      <p className="mb-5 text-sm tracking-widest text-champagne uppercase">{labels.eyebrow}</p>
       <h1 id="projects-heading" className="text-5xl leading-tight font-semibold tracking-tight sm:text-7xl">
         {labels.title}<span aria-hidden="true" className="text-copper">.</span>
       </h1>

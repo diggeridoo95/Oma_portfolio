@@ -10,9 +10,6 @@ const Contact = () => {
 
   return (
     <section aria-labelledby="contact-heading" className="max-w-2xl">
-      <p className="mb-6 text-sm tracking-widest text-champagne uppercase">
-        {translations.placeholderLabel}
-      </p>
       <h1 id="contact-heading" className="max-w-md text-5xl leading-tight font-semibold tracking-tight sm:text-7xl">
         {contact.heading}
       </h1>

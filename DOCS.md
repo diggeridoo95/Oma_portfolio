@@ -1,243 +1,197 @@
 # Toteutuksen dokumentaatio
 
-## Tyylien perusta
+Tämä tiedosto kuvaa portfolion nykyisen toteutuksen ja sen keskeiset ratkaisut. Käynnistysohjeet ja yleiskatsaus ovat [README.md](README.md)-tiedostossa. Käyttöliittymän oletuskieli on suomi; komponentit, funktiot ja muut koodin tunnisteet ovat englanniksi.
 
-Tailwind CSS 4 on yhdistetty Viteen `@tailwindcss/vite`-liitännäisellä tiedostossa `portfolio/vite.config.js`. Uusia riippuvuuksia ei tarvittu.
+## Sovelluksen rakenne ja reititys
 
-`portfolio/src/index.css` sisältää Tailwind-tuonnin ja `@theme`-määritykset. CSS tuodaan sovellukseen tiedostossa `portfolio/src/main.jsx`.
+`portfolio/src/main.jsx` käynnistää sovelluksen Reactin `StrictMode`-tilassa. `BrowserRouter` tarjoaa reitityksen ja `LanguageProvider` yhteisen kielitilan. `App.jsx` kokoaa navigaation, pääsisällön ja alatunnisteen.
 
-### Värit ja fontti
+| Osoite | Sivukomponentti |
+| --- | --- |
+| `/` | `Home.jsx` |
+| `/projects` | `Projects.jsx` |
+| `/projects/:slug` | `ProjectDetail.jsx` |
+| `/about` | `About.jsx` |
+| `/contact` | `Contact.jsx` |
+| Muut osoitteet | `NotFound.jsx` |
 
-Värit perustuvat design-referenssien tummaan, lämpimään palettiin ja AGENTS.md-tiedoston väriarvoihin.
+Pääsivujen polut ja käännösavaimet ovat `portfolio/src/data/navigation.js`-tiedoston nimettynä vientinä `navigation`. `Navbar.jsx` muodostaa listasta navigaatiolinkit. `App.jsx` käyttää samaa listaa sivun tunnistamiseen ja `Route`-elementtien luomiseen. Sen `pageComponents`-objekti yhdistää avaimet sivukomponentteihin. Projektisivun ja 404-sivun reitit määritellään erikseen. Näin navigaatiodata ei tarvitse React-komponenttien tuonteja.
 
-| Teeman nimi  | Väri      | Käyttö                     |
-| ------------ | --------- | -------------------------- |
-| `background` | `#242321` | Sivun tausta               |
-| `surface`    | `#393630` | Toissijaiset taustat       |
-| `copper`     | `#B87957` | Kuparinvärinen korostus    |
-| `champagne`  | `#C5A982` | Samppanjanvärinen korostus |
-| `primary`    | `#F0EBE3` | Pääteksti                  |
-| `secondary`  | `#B8B2A9` | Toissijainen teksti        |
-| `border`     | `#48443E` | Reunaviivat                |
+`NavLink` näyttää aktiivisen sivun kuparinvärisenä ja alleviivattuna. Projektit-linkki on aktiivinen myös yksittäisen projektin sivulla. Osoitteet pysyvät samoina kielenvaihdossa. `App.jsx` päivittää dokumentin otsikon sivun tai projektin nimen mukaan. HTML:n alustava otsikko on `Eemil Hakala - Portfolio`, oletuskieli `fi` ja sivustokuvake `public/favicon.svg`.
 
-Tailwind muodostaa teemasta luokkia kuten `bg-background` (taustaväri), `text-primary` (tekstin väri) ja `border-border` (reunaviivan väri). Luokan `border` avulla voidaan lisäksi määritellä reunaviivan paksuus.
+Tuotantopalvelimen on ohjattava sovelluksen reitit `index.html`:ään, jotta alasivujen suorat osoitteet toimivat. Tämä dokumentti ei vahvista julkaisua tai tuotantopalvelimen asetuksia.
 
-Fonttina on käyttöjärjestelmän sans-serif-fontti. Referenssikuvien tarkkaa fonttia ei ole vielä vahvistettu, eikä ulkoista fonttia ole lisätty.
+## Teema ja yhteinen asettelu
 
-### Sivun perustyylit
+Tailwind CSS 4 on yhdistetty Viteen `@tailwindcss/vite`-liitännäisellä tiedostossa `portfolio/vite.config.js`. `src/index.css` sisältää Tailwind-tuonnin, `@theme`-määritykset, perustyylit ja animaatiot. CSS tuodaan tiedostossa `main.jsx`.
 
-`@layer base` sisältää koko sivun oletukset: tumman taustan, vaalean tekstin, fontin, rivikorkeuden, 320 pikselin vähimmäisleveyden ja vähintään selainikkunan korkuisen sivun. Tailwindin Preflight huolehtii muun muassa selaimen oletusmarginaalien poistamisesta. Komponenttien Tailwind-luokat voivat täydentää perustyylejä.
+| Teema-avain | Nykyinen väri | Käyttö |
+| --- | --- | --- |
+| `background` | `#141010` | Sivun tausta |
+| `surface` | `#393630` | Kuvakehykset, merkit ja toissijaiset pinnat |
+| `copper` | `#B87957` | Korostukset ja aktiivinen navigaatio |
+| `champagne` | `#C5A982` | Toissijaiset korostukset |
+| `primary` | `#F0EBE3` | Pääteksti |
+| `secondary` | `#B8B2A9` | Leipäteksti ja toissijainen teksti |
+| `border` | `#48443E` | Reunaviivat |
 
-`portfolio/index.html` määrittää oletuskieleksi suomen (`lang="fi"`) ja välilehden alustavaksi otsikoksi `Portfolio`. Sovelluksen käynnistyttyä kielituki päivittää dokumentin kielen ja sivukohtaisen otsikon.
+Teema tuottaa luokkia kuten `bg-background`, `text-primary` ja `border-border`. Fontti on käyttöjärjestelmän sans-serif-fontti. Ulkoista fonttia ei käytetä. Nykyinen taustaväri poikkeaa alkuperäisestä `#242321`-suunnitelmasta.
 
-Tämä käyttöönotto perustuu Tailwindin omiin ohjeisiin, ei Full Stack Open -kurssin React-malleihin:
+Sivupohjan `max-w-7xl mx-auto` rajoittaa ja keskittää sisällön. `flex-col min-h-screen` ja pääsisällön `flex-1` pitävät alatunnisteen alhaalla lyhyillä sivuilla. Vähimmäisleveys on 320 px. `html`-elementin `scrollbar-gutter: stable` vähentää sivuttaista siirtymää, kun tilaa vievä vierityspalkki ilmestyy tai katoaa. Pääsisällön pystyvälistys on yleensä `py-14 sm:py-20`, projektisivulla `py-8 lg:py-6`.
 
-- [Tailwind CSS ja Vite](https://tailwindcss.com/docs/installation/using-vite)
-- [Teemamuuttujat](https://tailwindcss.com/docs/theme)
+Näppäimistökäyttöä tukevat `:focus-visible`-korostus, Siirry sisältöön -linkki ja `main-content`-elementin `tabIndex={-1}`. Viimeksi mainittu mahdollistaa ohjelmallisen kohdistuksen ilman ylimääräistä Tab-pysähdystä. Kuvilla on käännetyt vaihtoehtoiset tekstit; koristeelliset kuvakkeet piilotetaan ruudunlukijalta.
 
-## Yhteinen sivupohja ja reititys
+Ulkoasun referenssit ovat `design-references/`-kansiossa. Tailwindin asetukset perustuvat sen omiin ohjeisiin: [Vite-käyttöönotto](https://tailwindcss.com/docs/installation/using-vite) ja [teemamuuttujat](https://tailwindcss.com/docs/theme).
 
-`portfolio/src/main.jsx` ympäröi sovelluksen React Routerin `BrowserRouter`-komponentilla ja omalla `LanguageProvider`-komponentilla. Näin reititys ja kielitila ovat koko käyttöliittymän käytettävissä.
+## FI / EN -kielituki ja tekstien ylläpito
 
-`App.jsx` kokoaa navigaation, pääsisällön ja alatunnisteen. Reitit määritellään `Routes`- ja `Route`-komponenteilla:
+`src/translations/fi.js` ja `en.js` sisältävät samarakenteiset käännösobjektit nimettyinä vienteinä. Navigaatio, sivujen otsikot, painikkeet, saavutettavuustekstit ja henkilökohtaiset esittelytekstit luetaan näistä. Projektikohtainen sisältö on erikseen `src/data/projects.js`-tiedostossa.
 
-| Osoite            | Sisältö                                          |
-| ----------------- | ------------------------------------------------ |
-| `/`               | Etusivu                                          |
-| `/projects`       | Projektit                                        |
-| `/projects/:slug` | Yksittäinen projekti                             |
-| `/about`          | Esittely                                         |
-| `/contact`        | Yhteystiedot                                     |
-| Muut osoitteet    | Sivua ei löytynyt -ilmoitus ja linkki etusivulle |
+`LanguageContext.js` luo Contextin. `LanguageProvider.jsx` säilyttää kielen `useState`-tilassa, ja komponentit lukevat sen `useContext`-kutsulla. Tallennettu `en` avaa englannin; muulloin oletuksena on suomi. Vain käyttäjän tekemä kielivalinta kirjoitetaan `localStorage`en avaimella `portfolio-language`. Tallennuksen estyminen ei estä kielenvaihtoa nykyisen käyttökerran aikana. Effect päivittää dokumentin `lang`-attribuutin.
 
-Osoitteet pysyvät samoina kielenvaihdossa. Sivut käyttävät erillisiä `Home`-, `Projects`-, `ProjectDetail`-, `About`- ja `Contact`-komponentteja. Esittely- ja yhteystietosivujen yleinen `PlaceholderPage` korvattiin omilla sivukomponenteilla, joiden henkilökohtainen sisältö on edelleen selvästi merkittyä väliaikaista sisältöä.
+Navigaation FI / EN -painikkeissa aktiivinen kieli korostetaan värillä ja alleviivauksella. `aria-pressed` kertoo valinnan ja käännetyt nimet painikkeiden tarkoituksen. Kielenvaihto päivittää sisällön ilman sivun uudelleenlatausta.
 
-`Navbar.jsx` sisältää `NavLink`-linkit. React Router tunnistaa aktiivisen linkin, jolle annetaan kuparinvärinen teksti, alleviivaus ja automaattinen `aria-current`-attribuutti. Pienillä näytöillä navigaatio rivittyy. `Footer.jsx` sisältää lyhyen käännetyn tekstin ja erotinviivan.
+Esittelytekstissä on molemmilla kielillä neljä kappaletta: tausta ja opinnot, työkokemus, harjoittelupaikan etsiminen sekä sosiaalisuus ja harrastukset. `About.jsx` jakaa tekstin tyhjistä riveistä lausekkeella `split(/\n\s*\n/)`, muodostaa kappaleet `map`-kutsulla ja lisää väleihin tilaa `space-y-5`-luokalla. Projektien yhteenvedot käyttävät samaa periaatetta. Suomenkieliset tekstit ovat käyttäjän antamia; englanninkielinen sisältö vastaa niitä.
 
-`App.jsx`:n asettelussa `flex-col` järjestää osat allekkain, `min-h-screen` täyttää vähintään selainikkunan korkeuden ja pääsisällön `flex-1` pitää alatunnisteen alhaalla myös lyhyillä sivuilla. `max-w-7xl` rajoittaa sisällön leveyttä ja `mx-auto` keskittää sen. `sm:`- ja `md:`-alkuiset luokat tulevat käyttöön kyseisestä Tailwindin näyttöleveysrajasta alkaen.
-
-Näppäimistökäyttöä tukevat näkyvä `:focus-visible`-korostus ja kohdistettaessa näkyvä ”Siirry sisältöön” -linkki. Sen `sr-only`-luokka piilottaa linkin visuaalisesti, mutta pitää sen ruudunlukijoiden käytettävissä. Pääsisällön `tabIndex={-1}` mahdollistaa kohdistuksen linkistä ilman ylimääräistä sarkainpysähdystä.
-
-Tuotantopalvelimen pitää myöhemmin ohjata sovelluksen reitit `index.html`:ään, jotta esimerkiksi `/projects` toimii myös suoraan avattuna. Julkaisua tai palvelinasetuksia ei ole vielä tehty.
-
-## FI / EN -kielituki
-
-- `src/translations/fi.js` ja `en.js` sisältävät samarakenteiset käännösobjektit nimettyinä vienteinä. Niissä ovat navigaatio, sivutekstit, saavutettavuustekstit ja otsikoiden tekstit.
-- `src/context/LanguageContext.js` luo yhteisen Contextin. Määritys on erillään tarjoajakomponentista, jotta komponenttitiedosto vie vain komponentin ja Viten nopea päivitys toimii selkeästi.
-- `src/context/LanguageProvider.jsx` säilyttää valitun kielen `useState`-tilassa. Alustus lukee selaimeen tallennetun valinnan. Ilman kelvollista valintaa aloitetaan suomeksi riippumatta selaimen kielestä.
-- Komponentit lukevat `language`-, `changeLanguage`- ja `translations`-arvot Reactin `useContext`-kutsulla. Tilamuutos päivittää tekstit ilman sivun uudelleenlatausta.
-- `LanguageSwitcher.jsx` esittää FI / EN -painikkeet navigaatiolinkkien tyylisinä. Valittu kieli korostetaan kuparinvärisellä tekstillä ja alareunan viivalla, ilman pilleritaustaa tai yhteistä reunusta. Fonttikoko ja pystysuuntainen välistys vastaavat navigaatiolinkkejä. `aria-pressed` ilmaisee valinnan ruudunlukijalle. Painikkeilla ja kieliryhmällä on käännetyt saavutettavat nimet.
-
-Vain käyttäjän painikkeella tekemä valinta kirjoitetaan `localStorage`en avaimella `portfolio-language`. Jos selaimen tallennus on estetty, kielen vaihtaminen toimii silti nykyisen käyttökerran aikana.
-
-Tarjoajan `useEffect` päivittää dokumentin `lang`-attribuutin. `App.jsx`:n `useEffect` päivittää välilehden otsikon nykyisen sivun ja kielen mukaan, esimerkiksi `Etusivu | Eemil Hakala`. Contextin tehtävä on jakaa kielitila; reititin vastaa sivun valinnasta.
-
-Pienet nuolifunktiokomponentit, propsit, taulukoiden `map` ja `useState` noudattavat Full Stack Openin perusmalleja. Contextin yksityiskohdat ja reitityksen rajapinnat perustuvat Reactin ja React Routerin omiin ohjeisiin. Erillistä käännöskirjastoa tai omaa hookia ei lisätty.
+Pienet nuolifunktiokomponentit, propsit, `map`, `find`, `useState` ja effectien siivous noudattavat Full Stack Openin opetustapaa. Context ja reitityksen rajapinnat perustuvat lisäksi kirjastojen omiin ohjeisiin. Erillistä i18n-kirjastoa tai globaalia tilakirjastoa ei käytetä.
 
 - [Full Stack Open: tila ja tapahtumankäsittely](https://fullstackopen.com/osa1/monimutkaisempi_tila_reactin_debuggaus/)
 - [React: useContext](https://react.dev/reference/react/useContext)
 - [React: useEffect](https://react.dev/reference/react/useEffect)
 - [React Router: reititys](https://reactrouter.com/start/declarative/routing)
 
-## Etusivu
+## Etusivu ja esittely
 
-`portfolio/src/pages/Home.jsx` toteuttaa etusivun `design-references/home.png`-kuvan pohjalta. Se sisältää tervehdyksen, Eemil Hakalan nimen, opiskelijaroolin, lyhyen esittelyn ja kaksi linkkiä sekä pyöreäksi rajatun profiilikuvan kehysrenkaineen. `App.jsx` ohjaa etusivun reitin tähän komponenttiin.
+Etusivun tekstipalsta ja kuva ovat rinnakkain vähintään 1024 px:n näyttöleveydellä (`lg:grid-cols-[1.15fr_1fr]`), muuten allekkain. Tekstipalsta alkaa yläreunasta (`items-start`). Tervehdys sijoitetaan `relative`-tekstipalstan yläpuolelle luokilla `absolute bottom-full left-0`. Se ei vie tilaa otsikon edestä. Väli nimeen on 16 px ja vähintään sm-koossa 24 px. Myös esittelysivu käyttää yläreunakohdistusta, joten kuvan korkeus ei pystykeskitä otsikkoa alemmas.
 
-Esittelytekstin suomenkielinen versio on `portfolio/src/translations/fi.js`:n `pages.home.description`-kentässä ja englanninkielinen versio vastaavassa kohdassa `en.js`:ssä. Tervehdys, rooli, painikkeet, profiilikuvan vaihtoehtoinen teksti (`photoAlt`) ja kuvateksti (`photoCaption`) löytyvät samasta `pages.home`-objektista. Kenttä `title` määrittää välilehden sivunimen.
+`Home.jsx` valitsee tervehdyksen selaimen paikallisesta tunnista:
 
-Käännösten `siteName`-kenttä sisältää nyt nimen `Eemil Hakala`. Samaa kenttää käytetään navigaatiossa, etusivun pääotsikossa ja välilehden otsikon loppuosassa.
-
-### Asettelu ja linkit
-
-Etusivu on yksi `Home`-nuolifunktiokomponentti, joka lukee käännökset olemassa olevasta Contextista. Sen paikallinen tila säilyttää kellonajan mukaan vaihtuvaa tervehdystä varten nykyisen tunnin. `Link`-komponentit vievät `/projects`- ja `/contact`-reiteille ilman koko sivun uudelleenlatausta. Niiden koristeelliset `ArrowUpRight`-kuvakkeet ovat Lucide Reactista ja piilotetaan ruudunlukijoilta `aria-hidden`-attribuutilla.
-
-Tailwindin `grid` asettaa osat oletuksena allekkain. `lg:grid-cols-[1.15fr_1fr]` jakaa sisällön kahteen sarakkeeseen vähintään 1024 pikselin näyttöleveydellä, tekstille hieman enemmän tilaa. `gap-14` ja `lg:gap-12` säätävät osien väliä. `flex-wrap` sallii toimintolinkkien rivittymisen pienillä näytöillä.
-
-### Profiilikuva
-
-Etusivun kuva on `portfolio/public/images/Etusivu2.jpg`, johon viitataan selaimessa osoitteella `/images/Etusivu2.jpg`. Vite tarjoaa `public`-kansion tiedostot suoraan sivuston juuresta, joten polkuun ei lisätä `public`-osaa. Tiedostonimen kirjainkoko säilytetään myös viittauksessa.
-
-`aspect-square` pitää kehysalueen neliönä ja `rounded-full` tekee kuvasta ympyrän. Sisäkkäisten elementtien reunaviivat ja sisennykset muodostavat referenssin kehysrenkaat. `object-cover` täyttää kuva-alueen vääristämättä kuvasuhdetta; reunoilta rajautuu tarvittaessa sisältöä. `object-[50%_35%]` säätää rajauksen painotusta hieman keskikohtaa ylemmäs. Rajaus tapahtuu vain selaimessa, eikä alkuperäistä JPG-tiedostoa muuteta.
-
-Kehysalue on kapealla näytöllä enintään 288 pikseliä leveä, keskikokoisella enintään 320 pikseliä ja suurella enintään 480 pikseliä. `w-full` pienentää sitä tarvittaessa käytettävissä olevaan leveyteen. Suuren näytön enimmäisleveyden luokka korjattiin muotoon `lg:max-w-[480px]`, sillä mukautettu pikseliarvo tarvitsee Tailwindissa hakasulkeet.
-
-## Projektilista ja projektisivu
-
-`portfolio/src/pages/Projects.jsx` näyttää projektit `design-references/projects.png`-referenssin mukaisina vaakasuuntaisina kortteina. `ProjectCard.jsx` saa yhden projektin propsina. Projektit renderöidään `map`-kutsulla ja niiden `slug` toimii vakaana React-avaimena. Korteissa kuva on vasemmalla ja tiedot oikealla vähintään 768 pikselin leveydellä (`md:grid-cols-[0.9fr_1.1fr]`). Pienemmillä näytöillä sisältö on allekkain. Kortin kuva-alueen kuvasuhde on 16:10, ja `object-contain` näyttää koko kuvan rajaamatta sen reunoja. Mahdollinen tyhjä tila käyttää teeman `surface`-taustaväriä.
-
-`ProjectDetail.jsx` lukee osoitteen `slug`-parametrin React Routerin `useParams`-kutsulla ja etsii projektin taulukosta `find`-kutsulla. Paluulinkin alapuolella projektin nimi on omassa koko sisältöalueen levyisessä otsikko-osassa, jonka alareunan `border-b border-border` muodostaa erotinviivan.
-
-Viivan alapuolella sisältö jakautuu vähintään 1024 pikselin näyttöleveydellä kahteen palstaan luokalla `lg:grid-cols-[1.15fr_1fr]`. Vasemmalla ovat yksi yhteenveto ja mahdolliset GitHub- ja demolinkit. Oikealla on kuva ja sen alapuolella teknologiat. Projektisivulla ei näytetä erillistä esimerkkisisällön merkintää, luokittelua, lyhyttä kuvausta tai kuvan esimerkkitekstiä. Lyhyt kuvaus ja luokittelu ovat edelleen projektilistan käytössä. Pienemmillä näytöillä yhteenveto tulee ensin ja kuva sekä teknologiat sen jälkeen.
-
-Oikea palsta on enintään 480 pikseliä leveä (`max-w-[480px]`), ja `w-full` mukauttaa sen pienempään tilaan. Paikkamerkin kuvasuhde on 16:10, joten sen enimmäiskoko on 480 × 300 pikseliä. Oikean kuvan korkeus on enintään 300 pikseliä. `object-contain` näyttää kuvan kokonaan kuvasuhdetta säilyttäen. `items-start` tasaa palstat yläreunasta, ja `lg:justify-self-end` sijoittaa kuvapalstan oikealle.
-
-Otsikkoa ja osien välejä on tiivistetty, jotta sisältö mahtuu paremmin tietokoneen näkymään. `App.jsx` käyttää projektireiteillä pienempää pääsisällön pystyvälistystä (`py-8 lg:py-6`); muilla sivuilla välistys säilyy ennallaan. Sisältöä ei piiloteta tai lukita näytön korkeuteen, joten pieni näyttö, pitkä teksti tai suurennettu fontti voi edelleen vaatia vierittämistä.
-
-Valinnaiset lähdekoodi- ja demolinkit näytetään vain, jos osoitteet on annettu. Ulkoiset linkit avautuvat samassa välilehdessä. Tuntemattomalle slugille näytetään käännetty ilmoitus ja linkki projektilistaan.
-
-`App.jsx` määrittää `/projects/:slug`-reitin ja tunnistaa projektisivun `useMatch`-kutsulla. Välilehden otsikko käyttää projektin käännettyä nimeä tai puuttuvan projektin ilmoitusta. Navigaation Projektit-linkki pysyy aktiivisena myös projektisivulla React Routerin osittaisen reittiosuman ansiosta.
-
-### Yhteinen projektidata
-
-`portfolio/src/data/projects.js` vie nimetyn `projects`-taulukon. Sekä lista että projektisivu käyttävät sitä. Yhden projektin kentät ovat:
-
-| Kenttä                   | Sisältö                                                                                              |
-| ------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `slug`                   | Yksilöllinen osoitetunniste, joka pysyy samana molemmilla kielillä                                   |
-| `status`                 | `inProgress` (kehitteillä), `mvpReady` (MVP valmis), `prototype` (prototyyppi) tai `completed` (valmis) |
-| `image`                  | Kuvan osoite tai `null`, jolloin näytetään CSS-paikkamerkki                                          |
-| `imageAlt.fi` ja `.en`   | Oikean kuvan vaihtoehtoinen teksti molemmilla kielillä                                               |
-| `detailImage`             | Valinnainen projektisivun kuva; ilman sitä käytetään `image`-kenttää |
-| `detailImageAlt.fi` ja `.en` | Valinnaisen projektisivun kuvan vaihtoehtoiset tekstit |
-| `technologies`           | Teknologioiden nimet taulukkona                                                                      |
-| `githubUrl` ja `demoUrl` | Valinnaiset osoitteet tai `null`                                                                     |
-| `content.fi` ja `.en`    | Nimi (`title`), luokittelu (`category`), lyhyt kuvaus (`description`) ja yksi yhteenveto (`summary`) |
-
-Käyttöliittymätekstit ovat edelleen `translations/fi.js`- ja `en.js`-tiedostoissa. Projektikohtaiset tekstit luetaan `project.content[language]`-objektista. Näin kielenvaihto käyttää samoja komponentteja ja samaa projektimerkintää ilman sivujen kopiointia.
-
-Esimerkkiprojekti korvattiin yhdellä oikealla projektilla, `locost-telemetry`. `ProjectCard.jsx` lukee tilatekstin käännösten `pages.projects.statuses[project.status]`-kentästä. Locostin tila on `inProgress`, joka näytetään suomeksi ”Kehitteillä” ja englanniksi ”In progress”. Tulevan valmistuneen projektin tilaksi voidaan määrittää `completed`, jolloin teksti on ”Valmis” tai ”Completed”. Tuntemattoman tilan varalla käytetään yleistä projektimerkintää. Tilaa ilmaistaan tekstillä ilman edistymispalkkia.
-
-### Locost-telemetria
-
-Kuvaukset perustuvat käyttäjän hyväksymään sisältöön, lähdeprojektin README-tiedostoon, käyttöönotto- ja kehitysohjeisiin, protokollakuvauksiin sekä `projektimateriaalia/locost-vaatimusmaarittely.pdf`-vaatimusmäärittelyyn. Projektimateriaalit käsiteltiin tietolähteinä; niiden käyttöönottokomentoja ei suoritettu eikä lähdeprojektia muutettu.
-
-SeAMK Project LoCost Projektipaja® -kilpa-auton ovat käyttäjän antaman tiedon mukaan rakentaneet SeAMK:n auto- ja työkonetekniikan insinööriopiskelijat. Portfoliossa esiteltävän kolmen tietotekniikan opiskelijan ryhmän vastuu on auton telemetriajärjestelmä. Tämä työnjako mainitaan sekä kortin kuvauksessa että projektisivun yhteenvedossa molemmilla kielillä. Yksittäisten ryhmäläisten vastuita ei ole oletettu.
-
-Nykyinen ohjelmisto sisältää React-käyttöliittymän, Python/FastAPI-palvelinpuolen, SQLite-tallennuksen, reaaliaikaisen WebSocket-yhteyden ja mittaushistorian tarkastelun. Ensimmäinen mittauskanava on öljynpaine, ja ohjelmistoa kehitetään simuloidulla datalla. Fyysisen anturin, ESP32:n ja Raspberry Pi:n integrointia ei kuvata valmiiksi. Muut anturit, moottorinohjauksen tiedot ja etäseuranta esitetään jatkokehityksen tavoitteina.
-
-Yhteenveto on jaettu projektidatassa kolmeen kappaleeseen: tausta ja työnjako, nykyinen ohjelmisto sekä keskeneräinen laitteistointegraatio ja jatkokehitys. Teksti on monirivinen merkkijono, jonka kappaleiden välissä on tyhjä rivi. `ProjectDetail.jsx` jakaa tekstin tyhjien rivien kohdalta `split`-kutsulla ja renderöi osat `map`-kutsulla erillisiksi `<p>`-elementeiksi. Ympäröivän elementin `space-y-5` lisää kappalevälin. Sama ratkaisu toimii molemmilla kielillä; kyseessä on edelleen yksi yhteenveto ilman ylimääräisiä sisältöosioita.
-
-Projektin kuva on olemassa oleva `/images/locost.png`, joka sisältää auton ja laitteiston. Sen vaihtoehtoinen teksti on määritelty molemmilla kielillä. GitHub-osoite `https://github.com/diggeridoo95/locost_telemetry` löytyi lähdeprojektin käyttöönotto-ohjeesta; live-demoa ei lisätty. Uusi osoite on `/projects/locost-telemetry`, ja vanha esimerkkiosoite poistui datan korvaamisen myötä. Projektikuvatiedostoa ei muutettu eikä riippuvuuksia lisätty.
-
-### Jym
-
-Jym lisättiin toiseksi projektiksi tunnisteella `jym-workout` ja osoitteella `/projects/jym-workout`. Projektikortti ja tietosivu lukevat sisällön olemassa olevasta `projects.js`-taulukosta, joten uusia sivukomponentteja tai reittejä ei tarvittu. Molempien kielten yhteenvedot sisältävät kolme kappaletta: käyttötarkoitus, tekninen toteutus sekä nykytila ja jatkokehitys.
-
-Kuvaukset perustuvat käyttäjän vahvistamaan MVP:n valmistumiseen sekä lähdeprojektin README-tiedostoon, dokumentaation toteutuskuvauksiin ja keskeiseen lähdekoodiin. Käyttäjä voi rekisteröityä, kirjautua sisään, luoda ja muokata omia treeniohjelmia, määrittää viikon treeni- ja lepopäivät sekä liikkeiden suunnitellut sarjat ja toistot. Aktiivisen ohjelman voi valita etusivulle.
-
-Teknologioiksi kirjattiin React, JavaScript, Node.js, Express, PostgreSQL, Sequelize ja Docker. PWA-asennusta, julkista käyttöönottoa, toteutuneiden harjoitusten kirjaamista tai painojen ja kehityksen seurantaa ei kuvata valmiiksi ominaisuuksiksi. PWA ja julkaisu esitetään seuraavina tavoitteina ilman pysyvään portfoliotekstiin vanhenevaa viikkokohtaista määräaikaa.
-
-Projektin tila on `mvpReady`. Käännöksiin lisättiin tekstit ”MVP valmis” ja ”MVP ready”, jotta toimiva perusversio erottuu kokonaan valmistuneesta projektista. `ProjectCard.jsx` lukee uuden tilan nykyisellä toteutuksellaan.
-
-Kortin `image` on `/images/jym1.png`, joka näyttää treeniohjelman luontinäkymän. Projektisivun `detailImage` on `/images/jym2.png`, jossa näkyvät aktiivinen ohjelma ja viikon treeni- sekä lepopäivät. Molemmilla kuvilla on omat vaihtoehtoiset tekstit suomeksi ja englanniksi kentissä `imageAlt` ja `detailImageAlt`. Olemassa olevat komponentit näyttävät kuvat ilman muita koodimuutoksia. Alkuperäisiä kuvatiedostoja ei muokattu.
-
-`githubUrl` ja `demoUrl` ovat edelleen `null`, kunnes osoitteet on vahvistettu. Lähdeprojektin tiedostoja ei muutettu eikä sen asennus-, Docker- tai tietokantakomentoja suoritettu.
-
-### Zombie Island
-
-Zombie Island lisättiin kolmanneksi projektiksi tunnisteella `zombie-island` ja osoitteella `/projects/zombie-island`. Tila `prototype` näytetään suomeksi ”Prototyyppi” ja englanniksi ”Prototype”. Sisältö perustuu käyttäjän antamaan kuvaukseen tiedostossa `projektimateriaalia/linkit_ja_tietoa.txt` sekä lähdeprojektin version, pakettien ja keskeisten C#-skriptien tarkasteluun. Unity-projektia ei käynnistetty tai muutettu.
-
-Kyseessä on käyttäjän itsenäisesti toteuttama ensimmäisen persoonan selviytymispelin prototyyppi. Yhteenveto kuvaa pelaajan liikkumisen, ase- ja elämäpistejärjestelmät, NavMesh-pohjaiset viholliset, kasvavat vihollisaallot ja pelimaailman tapahtumat. Teknologiat ovat Unity 6, C#, URP, NavMesh, Unity Animator ja Unity UI. Valmiiden assettien hyödyntäminen mainitaan erikseen, eikä niiden alkuperäistä toteutusta väitetä käyttäjän työksi.
-
-Suomen- ja englanninkieliset yhteenvedot ovat monirivisiä merkkijonoja, joissa tyhjät rivit erottavat kolme kappaletta: projektin tarkoitus, toteutetut järjestelmät sekä oma vastuu ja opitut asiat. Olemassa oleva `ProjectDetail.jsx`:n `split`- ja `map`-toteutus näyttää ne erillisinä kappaleina ja `space-y-5` lisää niiden väliin tilaa.
-
-Kortin `image` on `/images/zombie_peli1.png`. Projektisivun `detailImage` on `/images/zombie_peli3.png`, ja molemmilla kuvilla on omat vaihtoehtoiset tekstit suomeksi ja englanniksi. `ProjectDetail.jsx` valitsee kuvan ilmauksella `project.detailImage ?? project.image` ja vaihtoehtoisen tekstin vastaavasti. Näin muille projekteille ei tarvitse määritellä erillistä kuvaa, ja myös Jymin kuvapaikkamerkki toimii edelleen. Kuvatiedostoja ei muutettu. GitHub- ja demolinkit ovat `null`, sillä osoitteita ei ole annettu.
-
-### Tetris Overwhelmed
-
-Tetris Overwhelmed lisättiin neljänneksi projektiksi tunnisteella `tetris-overwhelmed` ja osoitteella `/projects/tetris-overwhelmed`. Tila on `completed`, joka näytetään suomeksi ”Valmis” ja englanniksi ”Completed”. Kortti ja projektisivu käyttävät nykyisiä komponentteja ilman uusia reittejä tai riippuvuuksia.
-
-Sisältö perustuu käyttäjän antamiin kurssitietoihin, tehtävätaulujen kuvakaappauksiin sekä paikalliseen `projektimateriaalia/Tetris-vaatimusmäärittely.pdf`-tiedostoon. Projektin nimi näkyy käyttäjän valitsemissa pelikuvissa, ja Python toteutuskielenä on vahvistettu vaatimusmäärittelystä. GitHub-linkki on käyttäjän materiaalissa annettu `https://github.com/diggeridoo95/OhjelmistoProjekti_Tetris`. Repositorion sisältöä ei saatu avattua, joten muita kirjastoja tai teknisiä toteutusyksityiskohtia ei oletettu. Teknologialuettelossa ovat Python ja Git.
-
-Kurssin päätavoite oli harjoitella tiimityötä, suunnittelua ja sprinttityöskentelyä neljän henkilön ryhmässä. Käyttäjän mukaan kurssin ensimmäiset 2–3 viikkoa olivat suunnittelua, tämän jälkeen oli kahdeksan viikon sprinttijakso ja lopuksi ryhmäesitykset. Sprinttien tarkkaa lukumäärää tai pituutta ei oletettu.
-
-Eemilin oma osuus tunnistettiin tehtävätaulujen oranssista väristä. Yhteenvetoon kirjattiin tiedostorakenne, peliruudukko, HUD ja pisteytys, valikot, pommi- ja kentänkääntöominaisuuksien toteutusta sekä musiikkiin, ääniefekteihin ja koko näytön tilaan liittyvää työtä. Muiden ryhmäläisten tehtäviä ei luettu Eemilin vastuulle.
-
-Suomen- ja englanninkieliset yhteenvedot jakautuvat kolmeen kappaleeseen: projektin ja kurssin tavoite, aikataulu ja työskentelytapa sekä oma toteutusosuus. Tyhjät rivit tuottavat nykyisellä projektisivun toteutuksella erilliset `<p>`-elementit kappaleväleineen.
-
-Kortin kuva on `/images/tetri-project.png`, ja projektisivun erillinen kuva on `/images/tetris-project2.png`. Molemmilla on omat vaihtoehtoiset tekstit suomeksi ja englanniksi. GitHub-linkki näytetään, mutta live-demoa ei lisätty. Alkuperäisiä kuvia tai lähdeprojektia ei muutettu.
-
-## Esittely- ja yhteystietosivut
-
-`portfolio/src/pages/About.jsx` ja `Contact.jsx` ovat pienet nuolifunktiokomponentit, jotka lukevat tekstit olemassa olevasta `LanguageContext`ista. Sivujen tekstit ovat käännösten `pages.about`- ja `pages.contact`-objekteissa. `title` on välilehden otsikkoa varten, kun taas `heading` on sivulla näkyvä pääotsikko. `App.jsx` ohjaa `/about`- ja `/contact`-reitit uusiin komponentteihin. Korvattu `PlaceholderPage`-komponentti poistettiin.
-
-### Esittely
-
-Sivu perustuu `design-references/about.png`-kuvaan, johon lisättiin käyttäjän hyväksymä kuva oikealle. Tekstialue sisältää otsikon, esittelytekstin ja linkin projekteihin. Suomenkielinen esittelyteksti on päivitetty käyttäjän antamilla tiedoilla; englanninkielinen sisältö on vielä paikkamerkkitekstiä.
-
-`About.jsx` jakaa `about.description`-tekstin tyhjien rivien kohdalta `split`-kutsulla ja muodostaa jokaisesta osasta oman `<p>`-elementin `map`-kutsulla. Ympäröivän elementin `space-y-5` lisää kappaleiden väliin tilaa. Kappalejaot tehdään käännöstiedoston moniriviseen merkkijonoon jättämällä kappaleiden väliin tyhjä rivi. Sama toteutus toimii molemmilla kielillä, ja teksti ilman tyhjiä rivejä näytetään yhtenä kappaleena.
-
-`grid` pitää tekstin ja kuvan oletuksena allekkain. Vähintään 1024 pikselin näyttöleveydellä `lg:grid-cols-[minmax(0,1fr)_28rem]` varaa kuvalle 28 remin levyisen oikean palstan ja tekstille jäljelle jäävän tilan. `items-center` keskittää palstat pystysuunnassa. Kuva on pienillä näytöillä vaakasuunnassa keskellä ja tietokoneella oikealla (`justify-self-center lg:justify-self-end`).
-
-Esittelysivun kuva on `portfolio/public/images/Esitys.jpg`, jonka selainpolku on `/images/Esitys.jpg`. `aspect-[4/5]` antaa sille pystysuuntaisen 4:5-kuvasuhteen. Pienillä näytöillä `max-w-80` rajoittaa kuvan 320 × 400 pikseliin, ja tietokonenäkymässä `lg:max-w-none` sallii koko kuvapalstan täyttämisen. Tavallisella 16 pikselin juurifontilla tietokonenäkymän koko on 448 × 560 pikseliä. `rounded-2xl` pyöristää kulmat kevyesti, `w-full` mukauttaa leveyden ja `object-cover` täyttää kuva-alueen kuvasuhdetta vääristämättä.
-
-`Navbar.jsx`:n navigaatiolinkit ja kielenvaihtimen sisältävä oikea lohko käyttää samaa 28 remin leveyttä (`lg:w-[28rem]`). Koska navigaatio ja esittelysivu käyttävät yhteistä sisältöaluetta ja samaa oikeaa reunaa, kuvan vasen reuna kohdistuu Etusivu-linkin E-kirjaimen alkuun. Sama linjaus säilyy englanniksi Home-linkin kohdalla. Muutos koskee tietokonenäkymää; pienempien näyttöjen navigaatio säilyy joustavana.
-
-Kuvan vaihtoehtoinen teksti luetaan `pages.about.photoAlt`-kentästä nykyisellä kielellä. Molempien sivujen paikkamerkkien `photoPlaceholder`-avaimet korvattiin `photoAlt`-avaimilla. Alkuperäisiä kuvia ei rajattu, nimetty uudelleen tai pakattu.
-
-### Yhteystiedot
-
-Sivu sisältää otsikon, lyhyen kuvauksen, yhteystietolinkit ja paluulinkin projekteihin. Sähköposti, GitHub ja LinkedIn esitetään käyttäjän toimittaman uuden referenssin mukaisina reunustettuina linkkipainikkeina. Jokaisessa on kuvake vasemmalla ja käännetty teksti oikealla. `rounded-lg` pyöristää kulmat, `border border-border` lisää ohuen reunuksen ja `min-h-12` pitää painikkeen vähintään 48 pikselin korkuisena tavallisella juurifontilla. `flex flex-wrap gap-3` asettaa painikkeet rinnakkain ja sallii rivittymisen pienellä näytöllä.
-
-Painikkeet käyttävät käyttäjän lisäämiä osoitteita: `mailto:eemilxhakala@gmail.com`, `https://github.com/diggeridoo95` ja `https://www.linkedin.com/in/hakalaeemil/`. Ne ovat tavallisia `<a>`-linkkejä. GitHub ja LinkedIn avautuvat samassa välilehdessä; sähköpostilinkki pyytää selainta avaamaan sähköpostisovelluksen. Sähköpostipainikkeen saavutettava nimi sisältää myös osoitteen.
-
-`/images/email.png`- ja `/images/github.png`-kuvakkeet näytetään 24 × 24 pikselin kokoisina. Tailwindin `brightness-0 invert` muuttaa mustat kuviot valkoisiksi läpinäkyvyyden säilyttäen, jotta ne erottuvat tummalla taustalla. Kuvakkeilla on tyhjä `alt` ja `aria-hidden`, koska linkin teksti kertoo jo sen tarkoituksen.
-
-Lisätyn `linkedin.png`-tiedoston ruututausta on osa kuvatiedostoa. Siksi painikkeessa käytetään hyväksytysti HTML/CSS:llä tehtyä sinistä ympyrää ja valkoista `in`-tekstiä. Merkki on koristeellinen ja piilotettu ruudunlukijalta. Alkuperäisiä kuvatiedostoja ei muutettu. Englanninkielinen yhteystietokuvaus päivitettiin vastaamaan nykyisiä linkkejä.
-
-## Sivuttaisen siirtymän ehkäisy
-
-`portfolio/src/index.css` määrittää `html`-elementille `scrollbar-gutter: stable` -säännön perustyylien kerroksessa. Se varaa tilan tilaa vievälle pystysuuntaiselle vierityspalkille myös lyhyillä sivuilla. Näin sisältöalueen leveys ei muutu pelkästään vierityspalkin ilmestyessä tai kadotessa sivua vaihdettaessa. Sisällön päällä näkyvät vierityspalkit eivät vie tilaa, joten niiden yhteydessä sääntö ei lisää varausta.
-
-Muutos koskee sivuttaista siirtymää. Sivujen erilainen sisältökorkeus voi edelleen vaikuttaa alatunnisteen pystysuuntaiseen sijaintiin.
-
-## Kellonajan mukaan vaihtuva tervehdys
-
-`Home.jsx` valitsee etusivun tervehdyksen kävijän selaimen paikallisen kellonajan perusteella. `new Date().getHours()` palauttaa tunnin väliltä 0–23. Sivun oma `getGreetingPeriod`-nuolifunktio valitsee sen perusteella käännösavaimen:
-
-| Paikallinen aika | Avain | Suomenkielinen tervehdys |
+| Aika | Käännösavain | Suomenkielinen tervehdys |
 | --- | --- | --- |
 | 05.00–11.59 | `morning` | Valmiina uuteen päivään, ystävä? |
 | 12.00–16.59 | `day` | Hyvää päivää, Mestari! |
 | 17.00–21.59 | `evening` | Hyvää iltaa, matkalainen! |
 | 22.00–04.59 | `night` | Zzz. |
 
-`useState` alustaa tunnin etusivun avautuessa. `useEffect` käynnistää 60 sekunnin välein toimivan ajastimen, joka lukee tunnin uudelleen. Effectin palauttama siivousfunktio poistaa ajastimen etusivulta poistuttaessa ja estää päällekkäisten ajastimien jäämisen Reactin StrictMode-tarkistuksissa. Selaimen taustavälilehtien ajastimia voidaan hidastaa, joten tarkistus ei ole sekunnintarkka.
+Tunti alustetaan `useState`-kutsussa ja tarkistetaan 60 sekunnin välein. Effectin siivous poistaa ajastimen sivulta poistuttaessa, myös StrictMode-kehitystilassa. Taustavälilehden ajastinta voidaan hidastaa; kyseessä ei ole sekunnintarkka päivitys. Teksti näytetään normaalilla kirjainkoolla nykyisen kielen `pages.home.welcome`-objektista.
 
-Tekstit löytyvät `fi.js`- ja `en.js`-tiedostojen `pages.home.welcome`-objektista. Komponentti näyttää `home.welcome[greetingPeriod]`-tekstin nykyisellä kielellä. Kellonaikaa ei haeta palvelimelta, eikä käyttäjän sijaintia tarvita. Tervehdyksen `uppercase`-luokka poistettiin ja kirjainväliä pienennettiin `tracking-wide`-luokalla, joten teksti näkyy normaalilla kirjainkoolla.
+Etusivun `etusivu.webp` näkyy pyöreässä kehyksessä. `aspect-square` varaa neliön, `rounded-full` tekee ympyrän ja `object-cover object-[50%_35%]` säätää kuvan täyttöä ja rajausta. Kehyksen enimmäisleveys on mobiilissa 288 px, sm-koossa 320 px ja lg-koossa 480 px.
 
-## Tarkistukset
+Esittelysivun `esittely.webp` on 4:5-kuvasuhteen suorakulmio. Mobiilissa enimmäiskoko on 320 × 400 px ja tietokoneella 448 × 560 px tavallisella 16 px:n juurifontilla. `lg:grid-cols-[minmax(0,1fr)_28rem]` varaa oikealle kuvalle 28 rem. Navigaation oikean lohkon `lg:w-[28rem]` kohdistaa kuvan vasemman reunan Etusivu/Home-linkin alkuun. `object-cover` täyttää kehyksen, ja `rounded-2xl` pyöristää kulmat.
 
-Sivupohjan ja kielituen, etusivun, projektinäkymien sekä esittely- ja yhteystietosivujen toteutusten jälkeen `npm.cmd run lint` ja `npm.cmd run build` suoritettiin onnistuneesti `portfolio/`-kansiossa. Windowsin PowerShellissa käytettiin `npm.cmd`-käynnistintä, koska suorituspolitiikka esti `npm.ps1`:n ajamisen.
+## Projektidata ja näkymät
 
-Näillä tarkistettiin koodin staattiset säännöt ja tuotantoversion rakentuminen. Ulkoasua, navigointia, näppäimistökäyttöä ja kielivalinnan säilymistä ei vielä testattu selaimessa.
+`src/data/projects.js` vie nimetyn `projects`-taulukon, jota sekä lista että projektisivu käyttävät. Projektin `slug` toimii osoitetunnisteena ja kortin React-avaimena. `ProjectDetail.jsx` lukee tunnisteen `useParams`-kutsulla ja etsii projektin `find`-kutsulla. Tuntematon tunniste näyttää käännetyn ilmoituksen ja paluulinkin projektilistaan.
+
+| Kenttä | Sisältö |
+| --- | --- |
+| `slug` | Vakaa, molemmilla kielillä sama osoitetunniste |
+| `status` | Projektin tila, joka käännetään käyttöliittymässä |
+| `image`, `imageAlt.fi/en` | Kortin kuva ja vaihtoehtoiset tekstit; kuva voi olla `null` |
+| `detailImage`, `detailImageAlt.fi/en` | Valinnainen projektisivun kuva ja vaihtoehtoiset tekstit |
+| `technologies` | Teknologioiden nimet taulukkona |
+| `githubUrl`, `demoUrl` | Linkin osoite tai `null` |
+| `content.fi/en` | `title`, `category`, `description` ja `summary` |
+
+Projektikortissa kuva on vasemmalla ja teksti oikealla vähintään 768 px:n leveydellä, muuten allekkain. Kuva käyttää 16:10-aluetta, `object-contain`-sovitusta ja `loading="lazy"`-latausta. Projektisivun otsikko on omassa erotinviivalla rajatussa osassaan. Sen alla yhteenveto ja linkit ovat vasemmalla, kuva ja teknologiat oikealla vähintään 1024 px:n leveydellä. Mobiilissa yhteenveto tulee ennen kuvapalstaa.
+
+Kuvapalstan enimmäisleveys on 480 px. Sen `figure` käyttää luokkia `relative aspect-[16/10] w-full`, joten enintään 480 × 300 px:n tila on varattu ennen latautumista. Kuva täyttää kehyksen luokilla `absolute inset-0 h-full w-full object-contain`: sisältö näkyy kokonaan ilman venytystä, ja eri kuvasuhteilla kehykseen jää tyhjää tilaa. Teknologialista ei siirry kuvan latautuessa. Myös puuttuvan kuvan paikkamerkki käyttää samaa kehystä. Taustaa: [MDN:n kuvaelementin mitoitus](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#height).
+
+Projektisivulla on yksi kappaleisiin jaettu yhteenveto. Lyhyt kuvaus ja luokittelu kuuluvat projektilistaan. Ulkoiset lähdekoodi- ja demolinkit näytetään vain, kun osoite on annettu, ja ne avautuvat samassa välilehdessä. Tällä hetkellä yhdelläkään projektilla ei ole `demoUrl`-osoitetta.
+
+### Tilamerkit
+
+`ProjectCard.jsx` näyttää tilan reunustettuna merkkinä nimen yläpuolella. `inline-flex` asettaa tekstin ja pisteen vierekkäin, `rounded-full` pyöristää merkin ja `bg-surface` erottaa sen kortin taustasta. Teksti säilyy näkyvissä, joten merkitys ei perustu pelkkään väriin. Piste on koristeellinen (`aria-hidden="true"`).
+
+| Tila | FI / EN | Pisteen väri |
+| --- | --- | --- |
+| `inProgress` | Kehitteillä / In progress | Kupari |
+| `mvpReady` | MVP valmis / MVP ready | Vaaleanvihreä, `emerald-300` |
+| `prototype` | Prototyyppi / Prototype | Samppanja |
+| `completed` | Valmis / Completed | Vihreä, `emerald-500` |
+
+Tuntematon tila käyttää yleistä Projekti/Project-tekstiä ja `secondary`-väristä pistettä.
+
+### Nykyisten projektien sisältö ja lähteet
+
+**Locost-telemetria:** kolme tietotekniikan opiskelijaa kehittää auton telemetriajärjestelmää. Itse SeAMK Project LoCost Projektipaja® -kilpa-auton ovat rakentaneet auto- ja työkonetekniikan opiskelijat. Ohjelmistossa ovat React-käyttöliittymä, Python/FastAPI-palvelinpuoli, SQLite ja WebSocket-yhteys. Öljynpaineen seurantaa kehitetään simuloidulla datalla; anturin, ESP32:n ja Raspberry Pi:n fyysinen integraatio kuvataan keskeneräiseksi. Muut anturit ja etäseuranta ovat tavoitteita. Sisältö perustuu lähdeprojektin dokumentaatioon, paikalliseen `projektimateriaalia/locost-vaatimusmaarittely.pdf`-tiedostoon ja käyttäjän vahvistamaan työnjakoon. [Lähdekoodi](https://github.com/diggeridoo95/locost_telemetry).
+
+**Jym:** MVP sisältää rekisteröitymisen, istuntopohjaisen kirjautumisen ja käyttäjäkohtaisten viikko-ohjelmien, treenipäivien sekä suunniteltujen liikkeiden sarjojen ja toistojen hallinnan. Teknologiat ovat React, JavaScript, Node.js, Express, PostgreSQL, Sequelize ja Docker. PWA, julkaisu ja toteutuneiden harjoitusten seuranta kuvataan jatkokehitykseksi. Sisältö perustuu käyttäjän vahvistamaan MVP:n tilaan ja lähdeprojektin README-tiedoston, dokumentaation ja koodin aiempaan tarkasteluun. GitHub-osoite vahvistettiin paikallisen lähdeprojektin Git-asetuksista ja lisättiin `githubUrl`-kenttään: [lähdekoodi](https://github.com/diggeridoo95/jym_workout_tracker_1). `demoUrl` on edelleen `null`.
+
+**Zombie Island:** itsenäinen Unity 6 / C# -selviytymispelin prototyyppi. Kuvauksessa käsitellään pelaajaa, aseita, elämäpisteitä, NavMesh-vihollisia, vihollisaaltoja ja pelimaailman tapahtumia. Valmiiden assettien käyttö mainitaan; niitä ei esitetä itse tehdyiksi. Sisältö perustuu käyttäjän materiaaleihin ja paikallisen Unity-projektin keskeisten skriptien ja pakettien aiempaan tarkasteluun. GitHub- ja demolinkit puuttuvat.
+
+**Tetris Overwhelmed:** neljän hengen Python-kurssiprojekti, jonka päätavoitteet olivat tiimityö, suunnittelu ja sprinttityöskentely. Suunnittelu kesti käyttäjän mukaan 2–3 viikkoa, sprinttijakso kahdeksan viikkoa ja lopuksi pidettiin ryhmäesitykset. Eemilin osuus tunnistettiin tehtävätaulujen oranssista väristä: muun muassa tiedostorakenne, ruudukko, HUD, pisteytys, valikot, pommi- ja kentänkääntötoimintoja sekä ääniä. Lähteinä olivat käyttäjän tiedot, tehtävätaulut ja paikallinen `projektimateriaalia/Tetris-vaatimusmäärittely.pdf`. Repositorion sisältöä ei aiemmassa tarkastelussa saatu avattua, joten esimerkiksi Pygamea ei lisätty vahvistamattomana teknologiana. [Lähdekoodi](https://github.com/diggeridoo95/OhjelmistoProjekti_Tetris).
+
+Kaikkien neljän projektin yhteenvedot sisältävät molemmilla kielillä kolme kappaletta. Lähdeprojektien ohjeita käytettiin sisältölähteinä; niiden asennus- tai käyttöönottokomentoja ei suoritettu portfolioon sisältöä koottaessa.
+
+## Kuvat ja niiden ylläpito
+
+Sovelluksen kuvat ovat `portfolio/public/images/`-kansiossa. Selainpolku alkaa `/images/`, ilman `public`-osaa. Kirjainkoon on vastattava tiedostonimeä myös ympäristöissä, joissa tiedostonimet ovat kirjainkoon suhteen merkitseviä.
+
+| Käyttö | Projektilista | Projektisivu |
+| --- | --- | --- |
+| Locost | `locostprojects.webp` | Sama kuva, ei erillistä `detailImage`-arvoa |
+| Jym | `jymprojects.png` | `jymproject.png` |
+| Zombie Island | `zombieprojects.webp` | `zombieproject.webp` |
+| Tetris | `tetrisprojects.webp` | `tetrisproject.webp` |
+
+`projects`-pääte tarkoittaa listaa ja `project` yksittäistä projektisivua. Projektisivu valitsee `detailImage ?? image` ja vaihtoehtoisen tekstin vastaavasti. Jymin kortin vaihtoehtoinen teksti kuvaa treeniohjelman luontia; projektisivun teksti kuvaa etusivua ja viikon treeni- sekä lepopäiviä. Muut kuvat ovat `etusivu.webp`, `esittely.webp`, `email.png` ja `github.png`.
+
+Seitsemän suurta kuvaa pienennettiin Pillow-kirjastolla WebP-muotoon. EXIF-suunta huomioitiin, kuvasuhde säilytettiin ja pienennys tehtiin Lanczos-menetelmällä. Valokuvien laatutaso oli 88 ja projektikuvien 92. Kuvien yleisilme ja kuvakaappauksen tekstien luettavuus tarkistettiin muunnoksen yhteydessä. Portfolion npm-riippuvuuksia ei muutettu; Pillow oli erillinen Python-työkalu muunnosta varten.
+
+| Nykyinen nimi | Mitat | WebP-koko muunnoksen jälkeen |
+| --- | --- | --- |
+| `etusivu.webp` | 960 × 960 | 130 142 tavua |
+| `esittely.webp` | 900 × 1125 | 78 510 tavua |
+| `locostprojects.webp` | 1280 × 800 | 233 924 tavua |
+| `tetrisprojects.webp` | 1280 × 800 | 242 454 tavua |
+| `tetrisproject.webp` | 1280 × 723 | 156 860 tavua |
+| `zombieprojects.webp` | 1280 × 800 | 133 654 tavua |
+| `zombieproject.webp` | 1280 × 717 | 101 348 tavua |
+
+Muunnoksessa näiden seitsemän kuvan yhteiskoko pieneni 13 767 507 tavusta 1 076 892 tavuun, noin 92,18 %. Jym-kuvat ja kuvakkeet säilyivät PNG-muodossa. Alkuperäiset säilytettiin `image-originals/`-kansiossa alkuperäisillä nimillä, ja siirrossa tarkistettiin SHA-256-summat. Kansio on ohitettu Gitistä ja sijaitsee Viten `public`-kansion ulkopuolella, joten se ei kopioidu buildiin. Kuvia nimettiin myöhemmin uudelleen yllä olevan käytännön mukaisesti.
+
+## Yhteystiedot
+
+`Contact.jsx` näyttää reunustetut linkkipainikkeet sähköpostille, GitHubille ja LinkedInille. Osoitteet ovat `mailto:eemilxhakala@gmail.com`, `https://github.com/diggeridoo95` ja `https://www.linkedin.com/in/hakalaeemil/`. Linkit avautuvat samassa välilehdessä; sähköpostilinkki pyytää selainta avaamaan sähköpostisovelluksen.
+
+Painikkeet rivittyvät pienillä näytöillä (`flex flex-wrap`). `min-h-12` varaa tavallisella juurifontilla vähintään 48 px:n korkeuden. Sähköposti- ja GitHub-kuvakkeet ovat 24 × 24 px:n PNG-kuvia, jotka `brightness-0 invert` muuttaa vaaleiksi. LinkedInin sininen ympyrä ja `in`-teksti tehdään HTML/CSS:llä. Kuvakkeet ovat koristeellisia; näkyvä teksti kertoo linkin tarkoituksen ja sähköpostin saavutettava nimi sisältää osoitteen.
+
+## Reittivaihtojen vieritys ja kohdistus
+
+`NavigationManager.jsx` käyttää nykyistä `BrowserRouter`-reititystä. `useNavigationType` erottaa uuden navigoinnin (`PUSH` tai `REPLACE`) historian takaisin-/eteenpäin-siirtymästä (`POP`). Tavallinen sivunvaihto vie ylös ja kohdistaa `main-content`-elementin. Historiassa palatessa palautetaan tallennettu vaaka- ja pystysijainti. Aiempi pääsisällön linkkikohdistus palautetaan samalla `href`-arvolla löytyvään linkkiin, tai varakohteena käytetään pääsisältöä.
+
+Sijainti ja linkin osoite tallennetaan `useRef`-muuttujan `Map`-rakenteeseen `location.key`-avaimella. Saman sivun eri historiakäynnit säilyvät erillisinä. Tiedot katoavat sivun täydellä uudelleenlatauksella. Ensimmäisellä latauksella komponentti ei vieritä tai kohdista; kielenvaihto ei käynnistä palautusta.
+
+`useLayoutEffect` palauttaa kohdan DOM-päivityksen jälkeen ennen ruudun piirtämistä. `focus({ preventScroll: true })` estää kohdistuksen aiheuttaman ylimääräisen vierityksen, ja `scrollTo` käyttää välitöntä siirtymää. `history.scrollRestoration` asetetaan komponentin elinajaksi arvoon `manual` ja palautetaan siivouksessa aiempaan arvoon. Vieritys, kohdistus ja klikkauksen kaappausvaihe tallentavat tietoja ennen reitin vaihtumista. Kuuntelijat poistetaan effectin siivouksessa. Poistuvan DOM:n mahdollisesti rajaamaa vierityskohtaa ei tallenneta enää siivouksen aikana.
+
+Projektisivun Takaisin projekteihin -linkki on tavallinen navigointilinkki: se avaa listan yläreunasta. Selaimen takaisin-painike palauttaa aiemman kohdan. Saman dokumentin Siirry sisältöön -linkin toimintaa ei korvata. [React Routerin navigointityypit](https://reactrouter.com/7.18.6/api/hooks/useNavigationType).
+
+## Sivujen hillitty sisääntulo
+
+`App.jsx` ympäröi reittisisällön `page-enter`-elementillä, jonka avain on `pathname`. Animaatio alkaa osoitepolun vaihtuessa; kielenvaihto tai etusivun tuntipäivitys ei käynnistä sitä uudelleen. Navigaatio, alatunniste ja kohdistettava `main-content` pysyvät kehyksen ulkopuolella.
+
+`index.css` häivyttää sisällön näkyviin 200 ms:ssa. Ylimmän `section`- tai `article`-elementin suorat sisältöryhmät nousevat 6 px paikoilleen 240 ms:ssa. Aloitusviiveet ovat 0, 20, 40 ja enintään 60 ms. Ryhmiä animoidaan kokonaisuuksina, ei esimerkiksi kaikkia projektikortteja yksitellen. Animaatiot muuttavat läpinäkyvyyttä ja visuaalista siirtymää asettelumittojen sijaan. Navigointi ei odota ajastinta tai poistumisanimaatiota.
+
+Animaatiot ovat käytössä vain `prefers-reduced-motion: no-preference` -ehdolla. Muulloin sisältö näkyy suoraan. Tavallisessa CSS-tilassa sisältöä ei piiloteta. Nousuanimaation `backwards` säilyttää lähtösiirtymän aloitusviiveen aikana; lopuksi elementille ei jää pysyvää transform-määritystä. [MDN: vähennetyn liikkeen asetus](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion).
+
+## Tarkistukset ja niiden rajat
+
+Koodimuutosten yhteydessä `npm.cmd run lint` ja `npm.cmd run build` ovat onnistuneet `portfolio/`-kansiossa. PowerShellissa käytettiin `npm.cmd`-käynnistintä suorituspolitiikan estämän `npm.ps1`:n sijaan. Näillä tarkistettiin staattiset säännöt ja tuotantobuild, ei selaimen toimintaa. Tässä dokumentaatiopäivityksessä niitä ei tarvitse ajaa uudelleen.
+
+Lisäksi aiemmissa tarkistuksissa on varmistettu:
+
+- Kaikki 11 lähdekoodissa viitattua kuvaa löytyivät sekä `public/images/`- että buildin kuvakansiosta täsmälleen oikealla kirjainkoolla.
+- Muunnoksessa säilytetyt seitsemän alkuperäistä kuvaa eivät kopioituneet buildiin. Tuolloin buildin koko kuvakansio oli noin 1,34 Mt.
+- Molempien kielten esittelytekstissä on neljä ei-tyhjää kappaletta.
+- Erillinen Node/VM-simulaatio läpäisi ensimmäisen latauksen, StrictMode-siivoamisen, uuden sivun avaamisen, takaisin-/eteenpäin-palautuksen, linkkikohdistuksen ja varakohteen, saman reitin erilliset historiakäynnit sekä kielenvaihtoa vastaavan uudelleenrenderöinnin. Tämä ei ole projektiin lisätty pysyvä testisarja.
+
+Tässä dokumentaatiopäivityksessä tarkistettiin paikallisten Markdown-linkkien, tiedostopolkujen ja kuvien olemassaolo sekä npm-komentojen vastaavuus `package.json`-tiedostoon. Lisäksi projektimäärä, yhteenvetojen ja esittelyn kappalejaot, navigaation pääsivujen määrä, Jym-linkki ja nykyinen taustaväri tarkistettiin lähdekoodia vasten. Tarkistukset onnistuivat. Sovelluskoodia ei muutettu eikä lint- tai build-komentoja ajettu uudelleen.
+
+Dokumentaation päivitys perustuu paikalliseen koodiin. Ulkoisten GitHub-linkkien julkista saatavuutta tai projektien myöhempää valmistumista ei tällä tarkastelulla vahvisteta.
+
+Ennen julkaisua kannattaa tarkistaa selaimessa responsiivinen asettelu, FI/EN-tekstit ja kielivalinnan säilyminen, Tab-navigointi ja ohituslinkki, hitaan kuvalatauksen vaikutus, animaatiot vähennetyn liikkeen asetuksella sekä pitkältä projektilistalta avaaminen ja palaaminen takaisin-/eteenpäin-painikkeilla. Simulaatio ja onnistunut build eivät korvaa näitä selainkokeita.
+
+## Paikalliset materiaalit
+
+`PLAN.md`, `STRUCTURE.md`, `AGENTS.md`, `projektimateriaalia/` ja `image-originals/` ovat juuren `.gitignore`-määrityksissä. Ne voivat olla käytettävissä paikallisesti, mutta niiden mukanaoloa GitHubista kloonatussa projektissa ei pidä olettaa. `portfolio/.gitignore` ohittaa muun muassa riippuvuudet ja buildit; nykyisessä tiedostossa kuvakansiota ei ole ohitettu. Git-seurantaa ei tarkistettu tai muutettu tässä dokumentaatiotyössä.

@@ -25,9 +25,9 @@ const Home = () => {
   }, [])
 
   return (
-    <section aria-labelledby="home-heading" className="grid items-center gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
-      <div>
-        <p className="mb-6 text-sm tracking-wide text-champagne">
+    <section aria-labelledby="home-heading" className="grid items-start gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+      <div className="relative">
+        <p className="absolute bottom-full left-0 mb-4 w-full text-sm tracking-wide text-champagne sm:mb-6">
           {home.welcome[greetingPeriod]}
         </p>
         <h1 id="home-heading" className="text-5xl leading-tight font-semibold tracking-tight sm:text-6xl xl:text-7xl">
@@ -61,7 +61,7 @@ const Home = () => {
         <div className="aspect-square w-full max-w-72 rounded-full border border-border p-3 sm:max-w-80 sm:p-4 lg:max-w-[480px]">
           <div className="h-full rounded-full bg-surface p-4 sm:p-5">
             <img
-              src="/images/Etusivu2.jpg"
+              src="/images/etusivu.webp"
               alt={home.photoAlt}
               className="h-full w-full rounded-full border border-border object-cover object-[50%_35%]"
             />

@@ -2,13 +2,7 @@ import { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { LanguageContext } from '../context/LanguageContext.js'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
-
-const links = [
-  { path: '/', key: 'home' },
-  { path: '/projects', key: 'projects' },
-  { path: '/about', key: 'about' },
-  { path: '/contact', key: 'contact' },
-]
+import { navigation } from '../data/navigation.js'
 
 const Navbar = () => {
   const { translations } = useContext(LanguageContext)
@@ -21,7 +15,7 @@ const Navbar = () => {
       <div className="flex w-full flex-wrap items-center justify-between gap-x-8 gap-y-4 md:w-auto lg:w-[28rem]">
         <nav aria-label={translations.navigation.label}>
           <ul className="flex flex-wrap gap-x-6 gap-y-1 text-sm sm:text-base">
-            {links.map((link) => (
+            {navigation.map((link) => (
               <li key={link.key}>
                 <NavLink
                   to={link.path}

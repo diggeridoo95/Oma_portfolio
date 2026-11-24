@@ -2,7 +2,7 @@ export const projects = [
   {
     slug: 'locost-telemetry',
     status: 'inProgress',
-    image: '/images/projectlocostmain.png',
+    image: '/images/locostprojects.webp',
     imageAlt: {
       fi: 'Locost-kilpa-auto ja telemetriajärjestelmän laitteistoa.',
       en: 'The Locost race car and telemetry system hardware.',
@@ -36,18 +36,18 @@ Implementation and physical testing of the sensor, ESP32 and Raspberry Pi hardwa
   {
     slug: 'jym-workout',
     status: 'mvpReady',
-    image: '/images/jymmain.png',
+    image: '/images/jymprojects.png',
     imageAlt: {
       fi: 'Jym-sovelluksen treeniohjelman luontinäkymä, jossa valitaan treenipäivät ja lisätään liikkeet.',
       en: 'The Jym workout plan creation screen for selecting training days and adding exercises.',
     },
-    detailImage: '/images/jym1.png',
+    detailImage: '/images/jymproject.png',
     detailImageAlt: {
       fi: 'Jym-sovelluksen etusivu, jossa näkyvät aktiivinen treeniohjelma ja viikon treeni- sekä lepopäivät.',
       en: 'The Jym home page showing the active workout plan and weekly training and rest days.',
     },
     technologies: ['React', 'JavaScript', 'Node.js', 'Express', 'PostgreSQL', 'Sequelize', 'Docker'],
-    githubUrl: null,
+    githubUrl: 'https://github.com/diggeridoo95/jym_workout_tracker_1',
     demoUrl: null,
     content: {
       fi: {
@@ -75,12 +75,12 @@ The MVP is ready. The next goal is to create an installable PWA version and publ
   {
     slug: 'zombie-island',
     status: 'prototype',
-    image: '/images/zombie_peli1.png',
+    image: '/images/zombieprojects.webp',
     imageAlt: {
       fi: 'Zombie Island -pelin aloitusnäkymä, jossa näkyy zombeja ja pelin käynnistyspainike.',
       en: 'The Zombie Island start screen showing zombies and the start button.',
     },
-    detailImage: '/images/zombie_peli3.png',
+    detailImage: '/images/zombieproject.webp',
     detailImageAlt: {
       fi: 'Zombie Island -pelin ensimmäisen persoonan näkymä, jossa zombit lähestyvät aseistautunutta pelaajaa.',
       en: 'A first-person view in Zombie Island with zombies approaching the armed player.',
@@ -114,12 +114,12 @@ I was responsible for the game logic, user interface, and integrating animations
   {
     slug: 'tetris-overwhelmed',
     status: 'completed',
-    image: '/images/tetri-project.png',
+    image: '/images/tetrisprojects.webp',
     imageAlt: {
       fi: 'Tetris Overwhelmed -pelin värikäs aloitusvalikko.',
       en: 'The colourful start menu of Tetris Overwhelmed.',
     },
-    detailImage: '/images/tetris-project2.png',
+    detailImage: '/images/tetrisproject.webp',
     detailImageAlt: {
       fi: 'Tetris Overwhelmed -pelin pelinäkymä, jossa näkyvät pelikenttä, pisteet, taso, aika ja seuraava palikka.',
       en: 'Tetris Overwhelmed gameplay showing the board, score, level, timer and next piece.',

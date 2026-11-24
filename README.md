@@ -1,54 +1,47 @@
-# Henkilökohtainen portfolio
+# Eemil Hakala — henkilökohtainen portfolio
 
-Henkilökohtainen kehittäjäportfolio osaamisen ja projektien esittelyyn suomalaisille työnantajille ja harjoittelupaikkojen hakemista varten.
+Reactilla toteutettu kehittäjäportfolio, jossa esittelen projektejani, osaamistani ja taustaani. Sivusto on suunnattu erityisesti suomalaisille työnantajille ja harjoittelupaikkojen hakemista varten.
 
-## Suunniteltu sisältö
+## Sisältö ja toiminta
 
-- Etusivu ja lyhyt esittely.
-- Projektilista ja projektikohtaiset sivut.
-- Tarkempi esittely ja yhteystiedot.
-- Eri näyttökokoihin mukautuva ja saavutettava käyttöliittymä.
+Sivustossa on etusivu, projektilista, projektikohtaiset sivut, esittely ja yhteystiedot. Käyttöliittymä mukautuu eri näyttökokoihin. Portfolio toimii selaimessa ilman omaa palvelinpuolta, tietokantaa tai kirjautumista.
+
+- Suomi on oletuskieli. FI / EN -valinta vaihtaa myös saavutettavuustekstit ja välilehden otsikon. Kielivalinta muistetaan selaimessa, jos tallennus on käytettävissä.
+- Etusivun tervehdys vaihtuu kävijän paikallisen kellonajan mukaan.
+- Projektisivuilla on kappaleisiin jaettu yhteenveto, kuva, teknologiat ja mahdolliset lähdekoodilinkit. Projektien tilat näkyvät tekstin ja värillisen pisteen sisältävinä merkkeinä.
+- Uusi sivu avautuu ylhäältä. Selaimen takaisin- ja eteenpäin-painikkeilla palautetaan vierityskohta ja mahdollisuuksien mukaan aiempi linkkikohdistus nykyisen sivulatauksen aikana.
+- Sivut tulevat näkyviin lyhyellä häivytyksellä ja pienellä nousuliikkeellä. Vähennetyn liikkeen asetus huomioidaan.
+- Näppäimistökäyttöä tukevat kohdistuskorostukset ja Siirry sisältöön -linkki.
+
+## Esiteltävät projektit
+
+| Projekti | Tila | Aihe | Lähdekoodi |
+| --- | --- | --- | --- |
+| Locost-telemetria | Kehitteillä | Kolmen tietotekniikan opiskelijan toteuttama telemetriajärjestelmä SeAMK:n LoCost-kilpa-autoon | [GitHub](https://github.com/diggeridoo95/locost_telemetry) |
+| Jym | MVP valmis | Treeniohjelmien suunnitteluun ja hallintaan tarkoitettu verkkosovellus | [GitHub](https://github.com/diggeridoo95/jym_workout_tracker_1) |
+| Zombie Island | Prototyyppi | Itsenäisesti toteutettu Unity-selviytymispeli | — |
+| Tetris Overwhelmed | Valmis | Neljän hengen kurssiprojekti, jossa harjoiteltiin tiimityötä ja sprinttityöskentelyä | [GitHub](https://github.com/diggeridoo95/OhjelmistoProjekti_Tetris) |
+
+Portfoliossa Jym-sovelluksen PWA-versio ja julkaisu kuvataan jatkokehityksen tavoitteiksi. Locostissa erotetaan nykyinen ohjelmisto keskeneräisestä laitteistointegraatiosta. Auton rakentamisesta vastaavat SeAMK:n auto- ja työkonetekniikan opiskelijat.
 
 ## Työkalut
 
-| Työkalu                 | Käyttötarkoitus                                 |
-| ----------------------- | ----------------------------------------------- |
-| React ja JavaScript/JSX | Käyttöliittymän komponentit ja toiminnallisuus  |
-| Vite                    | Kehityspalvelin ja tuotantoversion rakentaminen |
-| Tailwind CSS            | Käyttöliittymän tyylit                          |
-| React Router            | Sivujen välinen navigointi                      |
-| Lucide React            | Kuvakkeet tarvittaessa                          |
-| Oxlint                  | Koodin staattinen tarkistus                     |
-| npm                     | Riippuvuuksien ja projektikomentojen hallinta   |
-| Git ja GitHub           | Versionhallinta ja lähdekoodin jakaminen        |
+| Työkalu | Käyttö |
+| --- | --- |
+| React ja JavaScript/JSX | Käyttöliittymän komponentit ja toiminnallisuus |
+| Vite | Kehityspalvelin ja tuotantobuild |
+| Tailwind CSS 4 | Tyylit ja responsiivinen asettelu |
+| React Router | Reititys ja navigointi |
+| Lucide React | Kuvakkeet |
+| Oxlint | Koodin staattinen tarkistus |
+| npm | Riippuvuudet ja projektikomennot |
+| Git ja GitHub | Versionhallinta |
 
-Sovellus toteutetaan selaimessa toimivana React-sovelluksena. Suunnitelmaan ei tällä hetkellä kuulu palvelinpuolta, tietokantaa tai kirjautumista.
+Riippuvuudet ja komennot löytyvät tiedostosta [portfolio/package.json](portfolio/package.json).
 
-## Nykyinen tila
+## Paikallinen kehitys
 
-React- ja Vite-pohja sekä Tailwind CSS ovat käytössä. Sovelluksessa on yhteinen navigaatio ja alatunniste sekä reitit etusivulle, projekteihin, esittelyyn ja yhteystietoihin. Tuntemattomille osoitteille näytetään ilmoitus ja linkki etusivulle.
-
-Etusivu esittelee Eemil Hakalan ja sisältää muokattavan esittelytekstin, linkit projekteihin ja yhteystietoihin sekä pyöreäksi rajatun profiilikuvan (`portfolio/public/images/Etusivu2.jpg`). Asettelu on leveällä näytöllä kaksipalstainen ja pienellä näytöllä allekkainen.
-
-Projektilista (`/projects`) ja projektisivu (`/projects/:slug`) käyttävät yhteistä `portfolio/src/data/projects.js`-tiedostoa. Ensimmäinen esitelty työ on kolmen opiskelijan keskeneräinen Locost-telemetriaprojekti osoitteessa `/projects/locost-telemetry`. Sen kuva on `portfolio/public/images/locost.png`, ja kortissa näkyy tila ”Kehitteillä”. Projektin tiedot, teknologiat ja GitHub-linkki perustuvat projektin dokumentaatioon. Kuvaus erottaa nykyisen ohjelmiston vielä toteutettavasta ja testattavasta laitteistointegraatiosta.
-
-Toinen projekti on Jym-treeniohjelmasovellus osoitteessa `/projects/jym-workout`. Sen MVP on käyttäjän vahvistuksen mukaan valmis: sovelluksessa voi kirjautua sisään ja hallita omia viikko-ohjelmia, treenipäiviä sekä suunniteltuja liikkeitä sarjoineen ja toistoineen. Asennettava PWA-versio ja julkinen käyttöönotto ovat seuraavia tavoitteita. Kortin kuvana on treeniohjelman luontinäkymä `jym1.png` ja projektisivulla etusivun näkymä `jym2.png`. GitHub- ja demolinkit odottavat osoitteiden vahvistamista.
-
-Kolmas projekti on itsenäisesti toteutettu Unity-peliprototyyppi Zombie Island osoitteessa `/projects/zombie-island`. Kortin kuvana on `zombie_peli1.png` ja projektisivun kuvana `zombie_peli3.png`. Suomen- ja englanninkieliset yhteenvedot on jaettu kolmeen kappaleeseen.
-
-Neljäs projekti on ohjelmistoprojektikurssilla neljän henkilön ryhmässä toteutettu Tetris Overwhelmed osoitteessa `/projects/tetris-overwhelmed`. Sen tila on ”Valmis”. Yhteenveto käsittelee kurssin tiimityö- ja suunnittelutavoitteita, 2–3 viikon suunnitteluvaihetta, kahdeksan viikon sprinttijaksoa sekä Eemilin omaa osuutta toteutuksessa. Kortin kuva on `tetri-project.png` ja projektisivun kuva `tetris-project2.png`. Mukana on GitHub-linkki.
-
-Projektisivulla on yksi kappaleisiin jaettu yhteenveto ja tuki valinnaisille GitHub- ja demolinkeille. Korttien tilat käännetään molemmille kielille: `inProgress` tarkoittaa kehitteillä olevaa, `mvpReady` valmista MVP:tä, `prototype` prototyyppiä ja `completed` valmistunutta projektia. Tuntematon projektiosoite näyttää ilmoituksen ja paluulinkin listaan.
-
-Esittelysivulla (`/about`) on esittelyteksti vasemmalla ja 4:5-kuvasuhteen suorakulmainen esityskuva (`portfolio/public/images/Esitys.jpg`) oikealla. Puhelimella ne ovat allekkain. Kuvilla on vaihtoehtoiset tekstit suomeksi ja englanniksi. Suomenkielinen esittely on päivitetty, ja englanninkielinen teksti on vielä paikkamerkki.
-
-Yhteystietosivulla (`/contact`) on reunustetut sähköposti-, GitHub- ja LinkedIn-linkkipainikkeet käyttäjän lisäämillä osoitteilla. Painikkeet asettuvat rinnakkain ja rivittyvät pienillä näytöillä. Sähköposti- ja GitHub-kuvakkeet ovat `public/images/`-kansiosta, ja LinkedInin sininen `in`-merkki on tehty HTML/CSS:llä.
-
-Käyttöliittymän oletuskieli on suomi. FI / EN -painikkeet vaihtavat myös saavutettavuustekstit ja välilehden otsikon ilman sivun uudelleenlatausta. Käyttäjän valinta muistetaan selaimen `localStorage`ssa, jos tallennus on käytettävissä. Komponentit, funktiot ja muut koodin tunnisteet nimetään englanniksi. Etusivun linkkien nuolikuvakkeet tulevat Lucide Reactista.
-
-## Kehityskomennot
-
-Komennot suoritetaan `portfolio/`-kansiossa. Node.js ja npm tarvitaan paikalliseen kehitykseen.
+Tarvitset Node.js:n ja npm:n. Suorita komennot projektin juuresta:
 
 ```sh
 cd portfolio
@@ -56,25 +49,33 @@ npm install
 npm run dev
 ```
 
-`npm install` asentaa riippuvuudet; sitä tarvitaan ensimmäisellä käyttökerralla tai riippuvuuksien muuttuessa.
+| Komento `portfolio/`-kansiossa | Tarkoitus |
+| --- | --- |
+| `npm run lint` | Tarkistaa koodin Oxlintilla |
+| `npm run build` | Rakentaa tuotantoversion `dist/`-kansioon |
+| `npm run preview` | Esikatselee rakennettua versiota paikallisesti |
 
-Muut käytettävissä olevat komennot:
+Jos PowerShellin suorituspolitiikka estää `npm.ps1`:n, käytä komentojen alussa `npm.cmd`, esimerkiksi `npm.cmd run dev`. Tuotantopalvelimen pitää ohjata sovelluksen reitit `index.html`:ään, jotta alasivujen suora avaaminen toimii.
 
-```sh
-npm run lint
-npm run build
-npm run preview
-```
+## Rakenne ja sisällön muokkaaminen
 
-`lint` tarkistaa koodin, `build` rakentaa tuotantoversion ja `preview` käynnistää rakennetun version paikallisen esikatselun.
+| Polku | Sisältö |
+| --- | --- |
+| `portfolio/src/pages/` | Sivukomponentit ja 404-sivu |
+| `portfolio/src/components/` | Navigaatio, projektikortti, alatunniste ja navigoinnin hallinta |
+| `portfolio/src/data/projects.js` | Projektitiedot, kuvat ja linkit sekä FI/EN-projektitekstit |
+| `portfolio/src/data/navigation.js` | Pääsivujen polut ja käännösavaimet |
+| `portfolio/src/translations/` | Käyttöliittymän ja esittelyn FI/EN-tekstit |
+| `portfolio/src/context/` | Kielitila ja sen tarjoaja |
+| `portfolio/src/index.css` | Teema, perustyylit ja animaatiot |
+| `portfolio/public/images/` | Sivuston kuvat ja kuvakkeet |
+| `design-references/` | Ulkoasun referenssikuvat |
+| [DOCS.md](DOCS.md) | Toteutuksen perustelut, kuvakäytännöt ja tarkistukset |
 
-## Projektin tiedostot
+Projektien kuvanimissä `projects` tarkoittaa projektilistan kuvaa ja `project` projektisivun kuvaa. Etusivu käyttää kuvaa `etusivu.webp` ja esittely kuvaa `esittely.webp`. Suuret kuvat on kevennetty WebP-muotoon; Jym-kuvat ja kuvakkeet ovat PNG-tiedostoja. Projektisivun kuvalle varataan 16:10-kehys jo ennen latautumista.
 
-- `portfolio/` — sovelluksen lähdekoodi, asetukset ja riippuvuudet.
-- `design-references/` — ulkoasun referenssikuvat.
-- `PLAN.md` — lyhyt rakennussuunnitelma.
-- `DOCS.md` — merkittävien toteutusten dokumentaatio.
-- `STRUCTURE.md` — ehdotus tavoitellusta kansiorakenteesta, ei nykyisen rakenteen kuvaus.
-- `AGENTS.md` — projektin työskentelyohjeet ja muutosten hyväksymiskäytäntö.
+Alkuperäiset kuvat säilyvät paikallisessa `image-originals/`-kansiossa, joka on ohitettu Gitistä eikä sisälly tuotantobuildiin.
 
-Projektissa suositaan pieniä, ymmärrettäviä toteutusvaiheita ja Full Stack Open -kurssin mukaisia Reactin perusmalleja.
+## Tarkistusten tila
+
+Koodimuutosten yhteydessä lint ja tuotantobuild ovat onnistuneet. Kuvaviittausten olemassaolo ja kirjainkoko on tarkistettu. Vierityksen ja kohdistuksen hallintaa on tarkistettu myös erillisellä simulaatiolla. Nämä eivät korvaa selaimessa tehtävää ulkoasun, saavutettavuuden ja navigoinnin testausta; tarkempi tilanne on DOCS.md:ssä.

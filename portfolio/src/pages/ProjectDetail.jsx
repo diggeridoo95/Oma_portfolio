@@ -70,15 +70,15 @@ const ProjectDetail = () => {
         </div>
 
         <div className="w-full max-w-[480px] lg:justify-self-end">
-          <figure>
+          <figure className="relative aspect-[16/10] w-full">
             {image ? (
               <img
                 src={image}
                 alt={imageAlt}
-                className="h-auto max-h-[300px] w-full rounded-lg object-contain"
+                className="absolute inset-0 h-full w-full rounded-lg object-contain"
               />
             ) : (
-              <div className="flex aspect-[16/10] items-center justify-center rounded-lg border border-border bg-surface p-6 text-center text-lg text-secondary sm:text-2xl">
+              <div className="flex h-full w-full items-center justify-center rounded-lg border border-border bg-surface p-6 text-center text-lg text-secondary sm:text-2xl">
                 <p>{projectLabels.imagePlaceholder}</p>
               </div>
             )}

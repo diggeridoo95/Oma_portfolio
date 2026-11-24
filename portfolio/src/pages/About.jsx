@@ -8,11 +8,8 @@ const About = () => {
   const about = translations.pages.about
 
   return (
-    <section aria-labelledby="about-heading" className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_28rem] lg:gap-16">
+    <section aria-labelledby="about-heading" className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_28rem] lg:gap-16">
       <div>
-        <p className="mb-6 text-sm tracking-widest text-champagne uppercase">
-          {translations.placeholderLabel}
-        </p>
         <h1 id="about-heading" className="max-w-sm text-5xl leading-tight font-semibold tracking-tight sm:text-7xl">
           {about.heading}
         </h1>
@@ -27,7 +24,7 @@ const About = () => {
         </Link>
       </div>
       <img
-        src="/images/Esitys.jpg"
+        src="/images/esittely.webp"
         alt={about.photoAlt}
         className="aspect-[4/5] w-full max-w-80 justify-self-center rounded-2xl border border-border object-cover lg:max-w-none lg:justify-self-end"
       />
