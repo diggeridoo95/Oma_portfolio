@@ -15,7 +15,7 @@ const ProjectCard = ({ project }) => {
           src={project.image}
           alt={project.imageAlt[language]}
           loading="lazy"
-          className="aspect-[16/10] w-full rounded-lg object-cover"
+          className="aspect-[16/10] w-full rounded-lg bg-surface object-contain"
         />
       ) : (
         <div className="flex aspect-[16/10] items-center justify-center rounded-lg bg-surface p-6 text-center text-secondary">
@@ -23,8 +23,8 @@ const ProjectCard = ({ project }) => {
         </div>
       )}
       <div className="min-w-0">
-        <p className="mb-3 text-sm tracking-widest text-champagne uppercase">
-          {project.isPlaceholder ? labels.exampleLabel : labels.projectLabel}
+        <p className="mb-3 text-sm font-medium text-champagne">
+          {labels.statuses[project.status] ?? labels.projectLabel}
         </p>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{content.title}</h2>
         <p className="mt-2 text-champagne">{content.category}</p>

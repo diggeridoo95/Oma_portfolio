@@ -30,7 +30,15 @@ React- ja Vite-pohja sekä Tailwind CSS ovat käytössä. Sovelluksessa on yhtei
 
 Etusivu esittelee Eemil Hakalan ja sisältää muokattavan esittelytekstin, linkit projekteihin ja yhteystietoihin sekä pyöreäksi rajatun profiilikuvan (`portfolio/public/images/Etusivu2.jpg`). Asettelu on leveällä näytöllä kaksipalstainen ja pienellä näytöllä allekkainen.
 
-Projektilista (`/projects`) ja projektisivu (`/projects/:slug`) käyttävät yhteistä `portfolio/src/data/projects.js`-tiedostoa. Mukana on yksi selvästi merkitty esimerkkiprojekti osoitteessa `/projects/example-project`, kuvan paikkamerkki ja esimerkkiteknologiat. Projektisivulla on yksi yhteenveto ja tuki valinnaisille GitHub- ja demolinkeille. Tuntematon projektiosoite näyttää ilmoituksen ja paluulinkin listaan.
+Projektilista (`/projects`) ja projektisivu (`/projects/:slug`) käyttävät yhteistä `portfolio/src/data/projects.js`-tiedostoa. Ensimmäinen esitelty työ on kolmen opiskelijan keskeneräinen Locost-telemetriaprojekti osoitteessa `/projects/locost-telemetry`. Sen kuva on `portfolio/public/images/locost.png`, ja kortissa näkyy tila ”Kehitteillä”. Projektin tiedot, teknologiat ja GitHub-linkki perustuvat projektin dokumentaatioon. Kuvaus erottaa nykyisen ohjelmiston vielä toteutettavasta ja testattavasta laitteistointegraatiosta.
+
+Toinen projekti on Jym-treeniohjelmasovellus osoitteessa `/projects/jym-workout`. Sen MVP on käyttäjän vahvistuksen mukaan valmis: sovelluksessa voi kirjautua sisään ja hallita omia viikko-ohjelmia, treenipäiviä sekä suunniteltuja liikkeitä sarjoineen ja toistoineen. Asennettava PWA-versio ja julkinen käyttöönotto ovat seuraavia tavoitteita. Kortin kuvana on treeniohjelman luontinäkymä `jym1.png` ja projektisivulla etusivun näkymä `jym2.png`. GitHub- ja demolinkit odottavat osoitteiden vahvistamista.
+
+Kolmas projekti on itsenäisesti toteutettu Unity-peliprototyyppi Zombie Island osoitteessa `/projects/zombie-island`. Kortin kuvana on `zombie_peli1.png` ja projektisivun kuvana `zombie_peli3.png`. Suomen- ja englanninkieliset yhteenvedot on jaettu kolmeen kappaleeseen.
+
+Neljäs projekti on ohjelmistoprojektikurssilla neljän henkilön ryhmässä toteutettu Tetris Overwhelmed osoitteessa `/projects/tetris-overwhelmed`. Sen tila on ”Valmis”. Yhteenveto käsittelee kurssin tiimityö- ja suunnittelutavoitteita, 2–3 viikon suunnitteluvaihetta, kahdeksan viikon sprinttijaksoa sekä Eemilin omaa osuutta toteutuksessa. Kortin kuva on `tetri-project.png` ja projektisivun kuva `tetris-project2.png`. Mukana on GitHub-linkki.
+
+Projektisivulla on yksi kappaleisiin jaettu yhteenveto ja tuki valinnaisille GitHub- ja demolinkeille. Korttien tilat käännetään molemmille kielille: `inProgress` tarkoittaa kehitteillä olevaa, `mvpReady` valmista MVP:tä, `prototype` prototyyppiä ja `completed` valmistunutta projektia. Tuntematon projektiosoite näyttää ilmoituksen ja paluulinkin listaan.
 
 Esittelysivulla (`/about`) on esittelyteksti vasemmalla ja 4:5-kuvasuhteen suorakulmainen esityskuva (`portfolio/public/images/Esitys.jpg`) oikealla. Puhelimella ne ovat allekkain. Kuvilla on vaihtoehtoiset tekstit suomeksi ja englanniksi. Suomenkielinen esittely on päivitetty, ja englanninkielinen teksti on vielä paikkamerkki.
 

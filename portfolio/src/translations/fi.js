@@ -37,8 +37,13 @@ export const fi = {
     projects: {
       title: 'Projektit',
       eyebrow: 'Tutustu projekteihin',
-      description: 'Projektien kuvaukset, käytetyt teknologiat ja tarkemmat esittelyt. Sisältö on toistaiseksi merkittyä esimerkkisisältöä.',
-      exampleLabel: 'Esimerkkisisältö',
+      description: 'Tutustu projekteihini, niiden toteutuksiin ja käyttämiini teknologioihin.',
+      statuses: {
+        inProgress: 'Kehitteillä',
+        mvpReady: 'MVP valmis',
+        prototype: 'Prototyyppi',
+        completed: 'Valmis',
+      },
       projectLabel: 'Projekti',
       imagePlaceholder: 'Projektikuva tulossa',
       technologiesLabel: 'Teknologiat',

@@ -37,8 +37,13 @@ export const en = {
     projects: {
       title: 'Projects',
       eyebrow: 'Explore the projects',
-      description: 'Project descriptions, technologies and detailed introductions. The current entries are clearly marked example content.',
-      exampleLabel: 'Example content',
+      description: 'Explore my projects, how they are built and the technologies I use.',
+      statuses: {
+        inProgress: 'In progress',
+        mvpReady: 'MVP ready',
+        prototype: 'Prototype',
+        completed: 'Completed',
+      },
       projectLabel: 'Project',
       imagePlaceholder: 'Project screenshot coming soon',
       technologiesLabel: 'Technologies',

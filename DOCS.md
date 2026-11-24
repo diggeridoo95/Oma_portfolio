@@ -103,7 +103,7 @@ Kehysalue on kapealla näytöllä enintään 288 pikseliä leveä, keskikokoisel
 
 ## Projektilista ja projektisivu
 
-`portfolio/src/pages/Projects.jsx` näyttää projektit `design-references/projects.png`-referenssin mukaisina vaakasuuntaisina kortteina. `ProjectCard.jsx` saa yhden projektin propsina. Projektit renderöidään `map`-kutsulla ja niiden `slug` toimii vakaana React-avaimena. Korteissa kuva on vasemmalla ja tiedot oikealla vähintään 768 pikselin leveydellä (`md:grid-cols-[0.9fr_1.1fr]`). Pienemmillä näytöillä sisältö on allekkain.
+`portfolio/src/pages/Projects.jsx` näyttää projektit `design-references/projects.png`-referenssin mukaisina vaakasuuntaisina kortteina. `ProjectCard.jsx` saa yhden projektin propsina. Projektit renderöidään `map`-kutsulla ja niiden `slug` toimii vakaana React-avaimena. Korteissa kuva on vasemmalla ja tiedot oikealla vähintään 768 pikselin leveydellä (`md:grid-cols-[0.9fr_1.1fr]`). Pienemmillä näytöillä sisältö on allekkain. Kortin kuva-alueen kuvasuhde on 16:10, ja `object-contain` näyttää koko kuvan rajaamatta sen reunoja. Mahdollinen tyhjä tila käyttää teeman `surface`-taustaväriä.
 
 `ProjectDetail.jsx` lukee osoitteen `slug`-parametrin React Routerin `useParams`-kutsulla ja etsii projektin taulukosta `find`-kutsulla. Paluulinkin alapuolella projektin nimi on omassa koko sisältöalueen levyisessä otsikko-osassa, jonka alareunan `border-b border-border` muodostaa erotinviivan.
 
@@ -124,16 +124,68 @@ Valinnaiset lähdekoodi- ja demolinkit näytetään vain, jos osoitteet on annet
 | Kenttä                   | Sisältö                                                                                              |
 | ------------------------ | ---------------------------------------------------------------------------------------------------- |
 | `slug`                   | Yksilöllinen osoitetunniste, joka pysyy samana molemmilla kielillä                                   |
-| `isPlaceholder`          | Näytetäänkö esimerkkisisällön merkintä                                                               |
+| `status`                 | `inProgress` (kehitteillä), `mvpReady` (MVP valmis), `prototype` (prototyyppi) tai `completed` (valmis) |
 | `image`                  | Kuvan osoite tai `null`, jolloin näytetään CSS-paikkamerkki                                          |
 | `imageAlt.fi` ja `.en`   | Oikean kuvan vaihtoehtoinen teksti molemmilla kielillä                                               |
+| `detailImage`             | Valinnainen projektisivun kuva; ilman sitä käytetään `image`-kenttää |
+| `detailImageAlt.fi` ja `.en` | Valinnaisen projektisivun kuvan vaihtoehtoiset tekstit |
 | `technologies`           | Teknologioiden nimet taulukkona                                                                      |
 | `githubUrl` ja `demoUrl` | Valinnaiset osoitteet tai `null`                                                                     |
 | `content.fi` ja `.en`    | Nimi (`title`), luokittelu (`category`), lyhyt kuvaus (`description`) ja yksi yhteenveto (`summary`) |
 
 Käyttöliittymätekstit ovat edelleen `translations/fi.js`- ja `en.js`-tiedostoissa. Projektikohtaiset tekstit luetaan `project.content[language]`-objektista. Näin kielenvaihto käyttää samoja komponentteja ja samaa projektimerkintää ilman sivujen kopiointia.
 
-Mukana on yksi hyväksytty esimerkkiprojekti, `example-project`. Sen kuvan, tekstien ja teknologioiden ei väitetä kuvaavan oikeaa valmistunutta työtä. Erillinen esimerkkimerkintä näkyy projektikortissa; projektisivulla esimerkkiluonne käy ilmi nimestä ja nykyisestä yhteenvetotekstistä. Esimerkki voidaan myöhemmin korvata oikealla projektilla, kun tiedot ja muutokset on hyväksytty. Projektikuvia ei luotu eikä uusia riippuvuuksia asennettu.
+Esimerkkiprojekti korvattiin yhdellä oikealla projektilla, `locost-telemetry`. `ProjectCard.jsx` lukee tilatekstin käännösten `pages.projects.statuses[project.status]`-kentästä. Locostin tila on `inProgress`, joka näytetään suomeksi ”Kehitteillä” ja englanniksi ”In progress”. Tulevan valmistuneen projektin tilaksi voidaan määrittää `completed`, jolloin teksti on ”Valmis” tai ”Completed”. Tuntemattoman tilan varalla käytetään yleistä projektimerkintää. Tilaa ilmaistaan tekstillä ilman edistymispalkkia.
+
+### Locost-telemetria
+
+Kuvaukset perustuvat käyttäjän hyväksymään sisältöön, lähdeprojektin README-tiedostoon, käyttöönotto- ja kehitysohjeisiin, protokollakuvauksiin sekä `projektimateriaalia/locost-vaatimusmaarittely.pdf`-vaatimusmäärittelyyn. Projektimateriaalit käsiteltiin tietolähteinä; niiden käyttöönottokomentoja ei suoritettu eikä lähdeprojektia muutettu.
+
+SeAMK Project LoCost Projektipaja® -kilpa-auton ovat käyttäjän antaman tiedon mukaan rakentaneet SeAMK:n auto- ja työkonetekniikan insinööriopiskelijat. Portfoliossa esiteltävän kolmen tietotekniikan opiskelijan ryhmän vastuu on auton telemetriajärjestelmä. Tämä työnjako mainitaan sekä kortin kuvauksessa että projektisivun yhteenvedossa molemmilla kielillä. Yksittäisten ryhmäläisten vastuita ei ole oletettu.
+
+Nykyinen ohjelmisto sisältää React-käyttöliittymän, Python/FastAPI-palvelinpuolen, SQLite-tallennuksen, reaaliaikaisen WebSocket-yhteyden ja mittaushistorian tarkastelun. Ensimmäinen mittauskanava on öljynpaine, ja ohjelmistoa kehitetään simuloidulla datalla. Fyysisen anturin, ESP32:n ja Raspberry Pi:n integrointia ei kuvata valmiiksi. Muut anturit, moottorinohjauksen tiedot ja etäseuranta esitetään jatkokehityksen tavoitteina.
+
+Yhteenveto on jaettu projektidatassa kolmeen kappaleeseen: tausta ja työnjako, nykyinen ohjelmisto sekä keskeneräinen laitteistointegraatio ja jatkokehitys. Teksti on monirivinen merkkijono, jonka kappaleiden välissä on tyhjä rivi. `ProjectDetail.jsx` jakaa tekstin tyhjien rivien kohdalta `split`-kutsulla ja renderöi osat `map`-kutsulla erillisiksi `<p>`-elementeiksi. Ympäröivän elementin `space-y-5` lisää kappalevälin. Sama ratkaisu toimii molemmilla kielillä; kyseessä on edelleen yksi yhteenveto ilman ylimääräisiä sisältöosioita.
+
+Projektin kuva on olemassa oleva `/images/locost.png`, joka sisältää auton ja laitteiston. Sen vaihtoehtoinen teksti on määritelty molemmilla kielillä. GitHub-osoite `https://github.com/diggeridoo95/locost_telemetry` löytyi lähdeprojektin käyttöönotto-ohjeesta; live-demoa ei lisätty. Uusi osoite on `/projects/locost-telemetry`, ja vanha esimerkkiosoite poistui datan korvaamisen myötä. Projektikuvatiedostoa ei muutettu eikä riippuvuuksia lisätty.
+
+### Jym
+
+Jym lisättiin toiseksi projektiksi tunnisteella `jym-workout` ja osoitteella `/projects/jym-workout`. Projektikortti ja tietosivu lukevat sisällön olemassa olevasta `projects.js`-taulukosta, joten uusia sivukomponentteja tai reittejä ei tarvittu. Molempien kielten yhteenvedot sisältävät kolme kappaletta: käyttötarkoitus, tekninen toteutus sekä nykytila ja jatkokehitys.
+
+Kuvaukset perustuvat käyttäjän vahvistamaan MVP:n valmistumiseen sekä lähdeprojektin README-tiedostoon, dokumentaation toteutuskuvauksiin ja keskeiseen lähdekoodiin. Käyttäjä voi rekisteröityä, kirjautua sisään, luoda ja muokata omia treeniohjelmia, määrittää viikon treeni- ja lepopäivät sekä liikkeiden suunnitellut sarjat ja toistot. Aktiivisen ohjelman voi valita etusivulle.
+
+Teknologioiksi kirjattiin React, JavaScript, Node.js, Express, PostgreSQL, Sequelize ja Docker. PWA-asennusta, julkista käyttöönottoa, toteutuneiden harjoitusten kirjaamista tai painojen ja kehityksen seurantaa ei kuvata valmiiksi ominaisuuksiksi. PWA ja julkaisu esitetään seuraavina tavoitteina ilman pysyvään portfoliotekstiin vanhenevaa viikkokohtaista määräaikaa.
+
+Projektin tila on `mvpReady`. Käännöksiin lisättiin tekstit ”MVP valmis” ja ”MVP ready”, jotta toimiva perusversio erottuu kokonaan valmistuneesta projektista. `ProjectCard.jsx` lukee uuden tilan nykyisellä toteutuksellaan.
+
+Kortin `image` on `/images/jym1.png`, joka näyttää treeniohjelman luontinäkymän. Projektisivun `detailImage` on `/images/jym2.png`, jossa näkyvät aktiivinen ohjelma ja viikon treeni- sekä lepopäivät. Molemmilla kuvilla on omat vaihtoehtoiset tekstit suomeksi ja englanniksi kentissä `imageAlt` ja `detailImageAlt`. Olemassa olevat komponentit näyttävät kuvat ilman muita koodimuutoksia. Alkuperäisiä kuvatiedostoja ei muokattu.
+
+`githubUrl` ja `demoUrl` ovat edelleen `null`, kunnes osoitteet on vahvistettu. Lähdeprojektin tiedostoja ei muutettu eikä sen asennus-, Docker- tai tietokantakomentoja suoritettu.
+
+### Zombie Island
+
+Zombie Island lisättiin kolmanneksi projektiksi tunnisteella `zombie-island` ja osoitteella `/projects/zombie-island`. Tila `prototype` näytetään suomeksi ”Prototyyppi” ja englanniksi ”Prototype”. Sisältö perustuu käyttäjän antamaan kuvaukseen tiedostossa `projektimateriaalia/linkit_ja_tietoa.txt` sekä lähdeprojektin version, pakettien ja keskeisten C#-skriptien tarkasteluun. Unity-projektia ei käynnistetty tai muutettu.
+
+Kyseessä on käyttäjän itsenäisesti toteuttama ensimmäisen persoonan selviytymispelin prototyyppi. Yhteenveto kuvaa pelaajan liikkumisen, ase- ja elämäpistejärjestelmät, NavMesh-pohjaiset viholliset, kasvavat vihollisaallot ja pelimaailman tapahtumat. Teknologiat ovat Unity 6, C#, URP, NavMesh, Unity Animator ja Unity UI. Valmiiden assettien hyödyntäminen mainitaan erikseen, eikä niiden alkuperäistä toteutusta väitetä käyttäjän työksi.
+
+Suomen- ja englanninkieliset yhteenvedot ovat monirivisiä merkkijonoja, joissa tyhjät rivit erottavat kolme kappaletta: projektin tarkoitus, toteutetut järjestelmät sekä oma vastuu ja opitut asiat. Olemassa oleva `ProjectDetail.jsx`:n `split`- ja `map`-toteutus näyttää ne erillisinä kappaleina ja `space-y-5` lisää niiden väliin tilaa.
+
+Kortin `image` on `/images/zombie_peli1.png`. Projektisivun `detailImage` on `/images/zombie_peli3.png`, ja molemmilla kuvilla on omat vaihtoehtoiset tekstit suomeksi ja englanniksi. `ProjectDetail.jsx` valitsee kuvan ilmauksella `project.detailImage ?? project.image` ja vaihtoehtoisen tekstin vastaavasti. Näin muille projekteille ei tarvitse määritellä erillistä kuvaa, ja myös Jymin kuvapaikkamerkki toimii edelleen. Kuvatiedostoja ei muutettu. GitHub- ja demolinkit ovat `null`, sillä osoitteita ei ole annettu.
+
+### Tetris Overwhelmed
+
+Tetris Overwhelmed lisättiin neljänneksi projektiksi tunnisteella `tetris-overwhelmed` ja osoitteella `/projects/tetris-overwhelmed`. Tila on `completed`, joka näytetään suomeksi ”Valmis” ja englanniksi ”Completed”. Kortti ja projektisivu käyttävät nykyisiä komponentteja ilman uusia reittejä tai riippuvuuksia.
+
+Sisältö perustuu käyttäjän antamiin kurssitietoihin, tehtävätaulujen kuvakaappauksiin sekä paikalliseen `projektimateriaalia/Tetris-vaatimusmäärittely.pdf`-tiedostoon. Projektin nimi näkyy käyttäjän valitsemissa pelikuvissa, ja Python toteutuskielenä on vahvistettu vaatimusmäärittelystä. GitHub-linkki on käyttäjän materiaalissa annettu `https://github.com/diggeridoo95/OhjelmistoProjekti_Tetris`. Repositorion sisältöä ei saatu avattua, joten muita kirjastoja tai teknisiä toteutusyksityiskohtia ei oletettu. Teknologialuettelossa ovat Python ja Git.
+
+Kurssin päätavoite oli harjoitella tiimityötä, suunnittelua ja sprinttityöskentelyä neljän henkilön ryhmässä. Käyttäjän mukaan kurssin ensimmäiset 2–3 viikkoa olivat suunnittelua, tämän jälkeen oli kahdeksan viikon sprinttijakso ja lopuksi ryhmäesitykset. Sprinttien tarkkaa lukumäärää tai pituutta ei oletettu.
+
+Eemilin oma osuus tunnistettiin tehtävätaulujen oranssista väristä. Yhteenvetoon kirjattiin tiedostorakenne, peliruudukko, HUD ja pisteytys, valikot, pommi- ja kentänkääntöominaisuuksien toteutusta sekä musiikkiin, ääniefekteihin ja koko näytön tilaan liittyvää työtä. Muiden ryhmäläisten tehtäviä ei luettu Eemilin vastuulle.
+
+Suomen- ja englanninkieliset yhteenvedot jakautuvat kolmeen kappaleeseen: projektin ja kurssin tavoite, aikataulu ja työskentelytapa sekä oma toteutusosuus. Tyhjät rivit tuottavat nykyisellä projektisivun toteutuksella erilliset `<p>`-elementit kappaleväleineen.
+
+Kortin kuva on `/images/tetri-project.png`, ja projektisivun erillinen kuva on `/images/tetris-project2.png`. Molemmilla on omat vaihtoehtoiset tekstit suomeksi ja englanniksi. GitHub-linkki näytetään, mutta live-demoa ei lisätty. Alkuperäisiä kuvia tai lähdeprojektia ei muutettu.
 
 ## Esittely- ja yhteystietosivut
 

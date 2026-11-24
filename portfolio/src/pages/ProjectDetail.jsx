@@ -26,6 +26,8 @@ const ProjectDetail = () => {
   }
 
   const content = project.content[language]
+  const image = project.detailImage ?? project.image
+  const imageAlt = (project.detailImageAlt ?? project.imageAlt)[language]
 
   return (
     <article aria-labelledby="project-heading">
@@ -42,7 +44,11 @@ const ProjectDetail = () => {
         <div className="min-w-0">
           <section aria-labelledby="summary-heading">
             <h2 id="summary-heading" className="text-xl font-semibold">{labels.summaryTitle}</h2>
-            <p className="mt-3 leading-relaxed text-secondary">{content.summary}</p>
+            <div className="mt-3 space-y-5 leading-relaxed text-secondary">
+              {content.summary.split(/\n\s*\n/).map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </section>
 
           {(project.githubUrl || project.demoUrl) && (
@@ -65,10 +71,10 @@ const ProjectDetail = () => {
 
         <div className="w-full max-w-[480px] lg:justify-self-end">
           <figure>
-            {project.image ? (
+            {image ? (
               <img
-                src={project.image}
-                alt={project.imageAlt[language]}
+                src={image}
+                alt={imageAlt}
                 className="h-auto max-h-[300px] w-full rounded-lg object-contain"
               />
             ) : (
