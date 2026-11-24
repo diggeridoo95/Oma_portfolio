@@ -50,7 +50,7 @@ Tämä käyttöönotto perustuu Tailwindin omiin ohjeisiin, ei Full Stack Open -
 | `/contact`        | Yhteystiedot                                     |
 | Muut osoitteet    | Sivua ei löytynyt -ilmoitus ja linkki etusivulle |
 
-Osoitteet pysyvät samoina kielenvaihdossa. Etusivu käyttää erillistä `Home`-komponenttia, projektilista `Projects`-komponenttia ja projektisivu `ProjectDetail`-komponenttia. Esittely ja yhteystiedot näyttävät toistaiseksi otsikon ja selvästi merkityn väliaikaisen sisällön käyttäen yksinkertaista `PlaceholderPage`-komponenttia `App.jsx`:ssä.
+Osoitteet pysyvät samoina kielenvaihdossa. Sivut käyttävät erillisiä `Home`-, `Projects`-, `ProjectDetail`-, `About`- ja `Contact`-komponentteja. Esittely- ja yhteystietosivujen yleinen `PlaceholderPage` korvattiin omilla sivukomponenteilla, joiden henkilökohtainen sisältö on edelleen selvästi merkittyä väliaikaista sisältöä.
 
 `Navbar.jsx` sisältää `NavLink`-linkit. React Router tunnistaa aktiivisen linkin, jolle annetaan kuparinvärinen teksti, alleviivaus ja automaattinen `aria-current`-attribuutti. Pienillä näytöillä navigaatio rivittyy. `Footer.jsx` sisältää lyhyen käännetyn tekstin ja erotinviivan.
 
@@ -81,23 +81,25 @@ Pienet nuolifunktiokomponentit, propsit, taulukoiden `map` ja `useState` noudatt
 
 ## Etusivu
 
-`portfolio/src/pages/Home.jsx` toteuttaa etusivun `design-references/home.png`-kuvan pohjalta. Se sisältää tervehdyksen, Eemil Hakalan nimen, opiskelijaroolin, lyhyen esittelyn ja kaksi linkkiä sekä pyöreän profiilikuvan paikkamerkin kehysrenkaineen. `App.jsx` ohjaa etusivun reitin tähän komponenttiin.
+`portfolio/src/pages/Home.jsx` toteuttaa etusivun `design-references/home.png`-kuvan pohjalta. Se sisältää tervehdyksen, Eemil Hakalan nimen, opiskelijaroolin, lyhyen esittelyn ja kaksi linkkiä sekä pyöreäksi rajatun profiilikuvan kehysrenkaineen. `App.jsx` ohjaa etusivun reitin tähän komponenttiin.
 
-Esittelyteksti on käyttäjän hyväksymä muokattava luonnos. Sen suomenkielinen versio on `portfolio/src/translations/fi.js`:n `pages.home.description`-kentässä ja englanninkielinen versio vastaavassa kohdassa `en.js`:ssä. Tervehdys, rooli, painikkeet ja profiilikuvan paikkamerkin tekstit löytyvät samasta `pages.home`-objektista. Kenttä `title` määrittää välilehden sivunimen, kun taas `greeting` kuuluu näkyvään pääotsikkoon.
+Esittelytekstin suomenkielinen versio on `portfolio/src/translations/fi.js`:n `pages.home.description`-kentässä ja englanninkielinen versio vastaavassa kohdassa `en.js`:ssä. Tervehdys, rooli, painikkeet, profiilikuvan vaihtoehtoinen teksti (`photoAlt`) ja kuvateksti (`photoCaption`) löytyvät samasta `pages.home`-objektista. Kenttä `title` määrittää välilehden sivunimen.
 
 Käännösten `siteName`-kenttä sisältää nyt nimen `Eemil Hakala`. Samaa kenttää käytetään navigaatiossa, etusivun pääotsikossa ja välilehden otsikon loppuosassa.
 
 ### Asettelu ja linkit
 
-Etusivu on yksi `Home`-nuolifunktiokomponentti, joka lukee käännökset olemassa olevasta Contextista. Siihen ei lisätty omaa tilaa tai uusia abstraktioita. `Link`-komponentit vievät `/projects`- ja `/contact`-reiteille ilman koko sivun uudelleenlatausta. Niiden koristeelliset `ArrowUpRight`-kuvakkeet ovat Lucide Reactista ja piilotetaan ruudunlukijoilta `aria-hidden`-attribuutilla.
+Etusivu on yksi `Home`-nuolifunktiokomponentti, joka lukee käännökset olemassa olevasta Contextista. Sen paikallinen tila säilyttää kellonajan mukaan vaihtuvaa tervehdystä varten nykyisen tunnin. `Link`-komponentit vievät `/projects`- ja `/contact`-reiteille ilman koko sivun uudelleenlatausta. Niiden koristeelliset `ArrowUpRight`-kuvakkeet ovat Lucide Reactista ja piilotetaan ruudunlukijoilta `aria-hidden`-attribuutilla.
 
 Tailwindin `grid` asettaa osat oletuksena allekkain. `lg:grid-cols-[1.15fr_1fr]` jakaa sisällön kahteen sarakkeeseen vähintään 1024 pikselin näyttöleveydellä, tekstille hieman enemmän tilaa. `gap-14` ja `lg:gap-12` säätävät osien väliä. `flex-wrap` sallii toimintolinkkien rivittymisen pienillä näytöillä.
 
-### Profiilikuvan paikkamerkki
+### Profiilikuva
 
-Paikkamerkki on CSS:llä muotoiltu tumma alue, jossa lukee ”Profiilikuva tulossa”. Se ei tarvitse kuvatiedostoa. `aspect-square` pitää alueen neliönä ja `rounded-full` tekee siitä ympyrän. Sisäkkäisten elementtien reunaviivat ja sisennykset muodostavat referenssin kehysrenkaat.
+Etusivun kuva on `portfolio/public/images/Etusivu2.jpg`, johon viitataan selaimessa osoitteella `/images/Etusivu2.jpg`. Vite tarjoaa `public`-kansion tiedostot suoraan sivuston juuresta, joten polkuun ei lisätä `public`-osaa. Tiedostonimen kirjainkoko säilytetään myös viittauksessa.
 
-Alue on kapealla näytöllä enintään 288 pikseliä leveä, keskikokoisella enintään 320 pikseliä ja suurella enintään 480 pikseliä. `w-full` pienentää sitä tarvittaessa käytettävissä olevaan leveyteen. Oikean kuvan lähtökooksi suositellaan myöhemmin 800 × 800 pikseliä; kuvan lisääminen tehdään erillisenä hyväksyttävänä muutoksena.
+`aspect-square` pitää kehysalueen neliönä ja `rounded-full` tekee kuvasta ympyrän. Sisäkkäisten elementtien reunaviivat ja sisennykset muodostavat referenssin kehysrenkaat. `object-cover` täyttää kuva-alueen vääristämättä kuvasuhdetta; reunoilta rajautuu tarvittaessa sisältöä. `object-[50%_35%]` säätää rajauksen painotusta hieman keskikohtaa ylemmäs. Rajaus tapahtuu vain selaimessa, eikä alkuperäistä JPG-tiedostoa muuteta.
+
+Kehysalue on kapealla näytöllä enintään 288 pikseliä leveä, keskikokoisella enintään 320 pikseliä ja suurella enintään 480 pikseliä. `w-full` pienentää sitä tarvittaessa käytettävissä olevaan leveyteen. Suuren näytön enimmäisleveyden luokka korjattiin muotoon `lg:max-w-[480px]`, sillä mukautettu pikseliarvo tarvitsee Tailwindissa hakasulkeet.
 
 ## Projektilista ja projektisivu
 
@@ -133,8 +135,57 @@ Käyttöliittymätekstit ovat edelleen `translations/fi.js`- ja `en.js`-tiedosto
 
 Mukana on yksi hyväksytty esimerkkiprojekti, `example-project`. Sen kuvan, tekstien ja teknologioiden ei väitetä kuvaavan oikeaa valmistunutta työtä. Erillinen esimerkkimerkintä näkyy projektikortissa; projektisivulla esimerkkiluonne käy ilmi nimestä ja nykyisestä yhteenvetotekstistä. Esimerkki voidaan myöhemmin korvata oikealla projektilla, kun tiedot ja muutokset on hyväksytty. Projektikuvia ei luotu eikä uusia riippuvuuksia asennettu.
 
+## Esittely- ja yhteystietosivut
+
+`portfolio/src/pages/About.jsx` ja `Contact.jsx` ovat pienet nuolifunktiokomponentit, jotka lukevat tekstit olemassa olevasta `LanguageContext`ista. Sivujen tekstit ovat käännösten `pages.about`- ja `pages.contact`-objekteissa. `title` on välilehden otsikkoa varten, kun taas `heading` on sivulla näkyvä pääotsikko. `App.jsx` ohjaa `/about`- ja `/contact`-reitit uusiin komponentteihin. Korvattu `PlaceholderPage`-komponentti poistettiin.
+
+### Esittely
+
+Sivu perustuu `design-references/about.png`-kuvaan, johon lisättiin käyttäjän hyväksymä kuva oikealle. Tekstialue sisältää otsikon, esittelytekstin ja linkin projekteihin. Suomenkielinen esittelyteksti on päivitetty käyttäjän antamilla tiedoilla; englanninkielinen sisältö on vielä paikkamerkkitekstiä.
+
+`About.jsx` jakaa `about.description`-tekstin tyhjien rivien kohdalta `split`-kutsulla ja muodostaa jokaisesta osasta oman `<p>`-elementin `map`-kutsulla. Ympäröivän elementin `space-y-5` lisää kappaleiden väliin tilaa. Kappalejaot tehdään käännöstiedoston moniriviseen merkkijonoon jättämällä kappaleiden väliin tyhjä rivi. Sama toteutus toimii molemmilla kielillä, ja teksti ilman tyhjiä rivejä näytetään yhtenä kappaleena.
+
+`grid` pitää tekstin ja kuvan oletuksena allekkain. Vähintään 1024 pikselin näyttöleveydellä `lg:grid-cols-[minmax(0,1fr)_28rem]` varaa kuvalle 28 remin levyisen oikean palstan ja tekstille jäljelle jäävän tilan. `items-center` keskittää palstat pystysuunnassa. Kuva on pienillä näytöillä vaakasuunnassa keskellä ja tietokoneella oikealla (`justify-self-center lg:justify-self-end`).
+
+Esittelysivun kuva on `portfolio/public/images/Esitys.jpg`, jonka selainpolku on `/images/Esitys.jpg`. `aspect-[4/5]` antaa sille pystysuuntaisen 4:5-kuvasuhteen. Pienillä näytöillä `max-w-80` rajoittaa kuvan 320 × 400 pikseliin, ja tietokonenäkymässä `lg:max-w-none` sallii koko kuvapalstan täyttämisen. Tavallisella 16 pikselin juurifontilla tietokonenäkymän koko on 448 × 560 pikseliä. `rounded-2xl` pyöristää kulmat kevyesti, `w-full` mukauttaa leveyden ja `object-cover` täyttää kuva-alueen kuvasuhdetta vääristämättä.
+
+`Navbar.jsx`:n navigaatiolinkit ja kielenvaihtimen sisältävä oikea lohko käyttää samaa 28 remin leveyttä (`lg:w-[28rem]`). Koska navigaatio ja esittelysivu käyttävät yhteistä sisältöaluetta ja samaa oikeaa reunaa, kuvan vasen reuna kohdistuu Etusivu-linkin E-kirjaimen alkuun. Sama linjaus säilyy englanniksi Home-linkin kohdalla. Muutos koskee tietokonenäkymää; pienempien näyttöjen navigaatio säilyy joustavana.
+
+Kuvan vaihtoehtoinen teksti luetaan `pages.about.photoAlt`-kentästä nykyisellä kielellä. Molempien sivujen paikkamerkkien `photoPlaceholder`-avaimet korvattiin `photoAlt`-avaimilla. Alkuperäisiä kuvia ei rajattu, nimetty uudelleen tai pakattu.
+
+### Yhteystiedot
+
+Sivu sisältää otsikon, lyhyen kuvauksen, yhteystietolinkit ja paluulinkin projekteihin. Sähköposti, GitHub ja LinkedIn esitetään käyttäjän toimittaman uuden referenssin mukaisina reunustettuina linkkipainikkeina. Jokaisessa on kuvake vasemmalla ja käännetty teksti oikealla. `rounded-lg` pyöristää kulmat, `border border-border` lisää ohuen reunuksen ja `min-h-12` pitää painikkeen vähintään 48 pikselin korkuisena tavallisella juurifontilla. `flex flex-wrap gap-3` asettaa painikkeet rinnakkain ja sallii rivittymisen pienellä näytöllä.
+
+Painikkeet käyttävät käyttäjän lisäämiä osoitteita: `mailto:eemilxhakala@gmail.com`, `https://github.com/diggeridoo95` ja `https://www.linkedin.com/in/hakalaeemil/`. Ne ovat tavallisia `<a>`-linkkejä. GitHub ja LinkedIn avautuvat samassa välilehdessä; sähköpostilinkki pyytää selainta avaamaan sähköpostisovelluksen. Sähköpostipainikkeen saavutettava nimi sisältää myös osoitteen.
+
+`/images/email.png`- ja `/images/github.png`-kuvakkeet näytetään 24 × 24 pikselin kokoisina. Tailwindin `brightness-0 invert` muuttaa mustat kuviot valkoisiksi läpinäkyvyyden säilyttäen, jotta ne erottuvat tummalla taustalla. Kuvakkeilla on tyhjä `alt` ja `aria-hidden`, koska linkin teksti kertoo jo sen tarkoituksen.
+
+Lisätyn `linkedin.png`-tiedoston ruututausta on osa kuvatiedostoa. Siksi painikkeessa käytetään hyväksytysti HTML/CSS:llä tehtyä sinistä ympyrää ja valkoista `in`-tekstiä. Merkki on koristeellinen ja piilotettu ruudunlukijalta. Alkuperäisiä kuvatiedostoja ei muutettu. Englanninkielinen yhteystietokuvaus päivitettiin vastaamaan nykyisiä linkkejä.
+
+## Sivuttaisen siirtymän ehkäisy
+
+`portfolio/src/index.css` määrittää `html`-elementille `scrollbar-gutter: stable` -säännön perustyylien kerroksessa. Se varaa tilan tilaa vievälle pystysuuntaiselle vierityspalkille myös lyhyillä sivuilla. Näin sisältöalueen leveys ei muutu pelkästään vierityspalkin ilmestyessä tai kadotessa sivua vaihdettaessa. Sisällön päällä näkyvät vierityspalkit eivät vie tilaa, joten niiden yhteydessä sääntö ei lisää varausta.
+
+Muutos koskee sivuttaista siirtymää. Sivujen erilainen sisältökorkeus voi edelleen vaikuttaa alatunnisteen pystysuuntaiseen sijaintiin.
+
+## Kellonajan mukaan vaihtuva tervehdys
+
+`Home.jsx` valitsee etusivun tervehdyksen kävijän selaimen paikallisen kellonajan perusteella. `new Date().getHours()` palauttaa tunnin väliltä 0–23. Sivun oma `getGreetingPeriod`-nuolifunktio valitsee sen perusteella käännösavaimen:
+
+| Paikallinen aika | Avain | Suomenkielinen tervehdys |
+| --- | --- | --- |
+| 05.00–11.59 | `morning` | Valmiina uuteen päivään, ystävä? |
+| 12.00–16.59 | `day` | Hyvää päivää, Mestari! |
+| 17.00–21.59 | `evening` | Hyvää iltaa, matkalainen! |
+| 22.00–04.59 | `night` | Zzz. |
+
+`useState` alustaa tunnin etusivun avautuessa. `useEffect` käynnistää 60 sekunnin välein toimivan ajastimen, joka lukee tunnin uudelleen. Effectin palauttama siivousfunktio poistaa ajastimen etusivulta poistuttaessa ja estää päällekkäisten ajastimien jäämisen Reactin StrictMode-tarkistuksissa. Selaimen taustavälilehtien ajastimia voidaan hidastaa, joten tarkistus ei ole sekunnintarkka.
+
+Tekstit löytyvät `fi.js`- ja `en.js`-tiedostojen `pages.home.welcome`-objektista. Komponentti näyttää `home.welcome[greetingPeriod]`-tekstin nykyisellä kielellä. Kellonaikaa ei haeta palvelimelta, eikä käyttäjän sijaintia tarvita. Tervehdyksen `uppercase`-luokka poistettiin ja kirjainväliä pienennettiin `tracking-wide`-luokalla, joten teksti näkyy normaalilla kirjainkoolla.
+
 ## Tarkistukset
 
-Sivupohjan ja kielituen, etusivun sekä projektilistan ja projektisivun toteutusten jälkeen `npm.cmd run lint` ja `npm.cmd run build` suoritettiin onnistuneesti `portfolio/`-kansiossa. Windowsin PowerShellissa käytettiin `npm.cmd`-käynnistintä, koska suorituspolitiikka esti `npm.ps1`:n ajamisen.
+Sivupohjan ja kielituen, etusivun, projektinäkymien sekä esittely- ja yhteystietosivujen toteutusten jälkeen `npm.cmd run lint` ja `npm.cmd run build` suoritettiin onnistuneesti `portfolio/`-kansiossa. Windowsin PowerShellissa käytettiin `npm.cmd`-käynnistintä, koska suorituspolitiikka esti `npm.ps1`:n ajamisen.
 
 Näillä tarkistettiin koodin staattiset säännöt ja tuotantoversion rakentuminen. Ulkoasua, navigointia, näppäimistökäyttöä ja kielivalinnan säilymistä ei vielä testattu selaimessa.

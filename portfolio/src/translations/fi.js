@@ -15,18 +15,23 @@ export const fi = {
     en: 'Vaihda englanniksi',
   },
   footer: {
-    text: 'Tutustu projekteihin ja tekijään.',
+    text: '© 2026 Eemil Hakala.',
   },
   pages: {
     home: {
       title: 'Etusivu',
-      welcome: 'Hei ja tervetuloa',
-      greeting: 'Hei, olen',
-      role: 'Ohjelmistokehityksen opiskelija',
-      description: 'Kehitän osaamistani rakentamalla projekteja ja oppimalla uutta tekemisen kautta. Tässä portfoliossa pääset tutustumaan töihini, käyttämiini teknologioihin ja minuun niiden takana.',
+      welcome: {
+        morning: 'Valmiina uuteen päivään, ystävä?',
+        day: 'Hyvää päivää, Mestari!',
+        evening: 'Hyvää iltaa, matkalainen!',
+        night: 'Zzz.',
+      },
+      greeting: '',
+      role: 'Tietotekniikan insinööriopiskelija',
+      description: 'Olen tietotekniikan insinööriopiskelija ja kehitän osaamistani käytännön projektien kautta. Tästä portfoliosta löydät pienimuotosia projektejani sekä yleiskatsauksen minusta.',
       projectsLink: 'Projektini',
       contactLink: 'Ota yhteyttä',
-      photoPlaceholder: 'Profiilikuva tulossa',
+      photoAlt: 'Eemil Hakala olkihattu päässä.',
       photoCaption: 'Tekijä töiden takana.',
     },
     projects: {
@@ -50,12 +55,25 @@ export const fi = {
       notFoundDescription: 'Tällä osoitteella ei löytynyt projektia. Voit palata projektilistaan alla olevasta linkistä.',
     },
     about: {
-      title: 'Esittely.',
-      description: 'Tähän tulee esittely taustasta, kiinnostuksenkohteista ja osaamisesta.',
+      title: 'Esittely',
+      heading: 'Minusta',
+      description: `Olen Eemil, 23-vuotias seinäjokelainen ja kolmannen vuoden tietotekniikan insinööriopiskelija Seinäjoen ammattikorkeakoulussa. Minua kiinnostavat erityisesti ohjelmistokehitys ja verkkosovellukset. Haluan rakentaa käytännöllisiä ratkaisuja, jotka helpottavat tekemistä ja tuottavat hyviä tuloksia.
+
+Työkokemusta minulle on kertynyt asiakaspalvelusta, lasten ohjaamisesta ja tehtaan tuotannosta. Erilaiset työympäristöt ovat opettaneet minulle yhteistyötaitoja, prosessien hallintaa ja harkittua päätöksentekoa. Nyt etsin oman alan harjoittelupaikkaa Seinäjoen seudulta, jossa pääsisin soveltamaan opinnoissa kertynyttä osaamistani ja oppimaan lisää ohjelmistokehityksestä. Eteläpohjalaisena olisi hienoa ottaa seuraava askel työelämään omalla kotiseudulla.
+
+Olen sosiaalinen ja tulen luontevasti toimeen erilaisten ihmisten kanssa. Vapaa-ajallani käyn kuntosalilla, soitan kitaraa ja tuotan musiikkia.`,
+      projectsLink: 'Tutustu projekteihini',
+      photoAlt: 'Eemil Hakala pitämässä esitystä näytön edessä.',
     },
     contact: {
-      title: 'Yhteystiedot.',
-      description: 'Tähän tulevat sähköpostiosoite ja valitut profiililinkit.',
+      title: 'Yhteystiedot',
+      heading: 'Yhteystietoni',
+      description: 'Täältä löydät sähköpostiosoitteeni sekä GitHub- ja LinkedIn-profiilini.',
+      emailLabel: 'Sähköposti',
+      githubLabel: 'GitHub',
+      linkedInLabel: 'LinkedIn',
+      comingSoon: 'Lisätään myöhemmin',
+      projectsLink: 'Takaisin projekteihin',
     },
     notFound: {
       title: 'Sivua ei löytynyt.',

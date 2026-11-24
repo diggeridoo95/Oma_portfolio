@@ -1,21 +1,38 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { LanguageContext } from '../context/LanguageContext.js'
 
+const getGreetingPeriod = (hour) => {
+  if (hour >= 5 && hour < 12) return 'morning'
+  if (hour >= 12 && hour < 17) return 'day'
+  if (hour >= 17 && hour < 22) return 'evening'
+  return 'night'
+}
+
 const Home = () => {
   const { translations } = useContext(LanguageContext)
+  const [hour, setHour] = useState(() => new Date().getHours())
   const home = translations.pages.home
+  const greetingPeriod = getGreetingPeriod(hour)
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setHour(new Date().getHours())
+    }, 60_000)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
 
   return (
     <section aria-labelledby="home-heading" className="grid items-center gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
       <div>
-        <p className="mb-6 text-sm tracking-widest text-champagne uppercase">
-          {home.welcome}
+        <p className="mb-6 text-sm tracking-wide text-champagne">
+          {home.welcome[greetingPeriod]}
         </p>
         <h1 id="home-heading" className="text-5xl leading-tight font-semibold tracking-tight sm:text-6xl xl:text-7xl">
-          <span className="block">{home.greeting}</span>
-          <span className="block">{translations.siteName}.</span>
+
+          <span className="block">{translations.siteName}</span>
         </h1>
         <div aria-hidden="true" className="mt-5 h-0.5 w-20 rounded-full bg-copper" />
         <p className="mt-6 text-xl font-medium text-champagne">{home.role}</p>
@@ -43,11 +60,11 @@ const Home = () => {
       <figure className="flex w-full flex-col items-center gap-6">
         <div className="aspect-square w-full max-w-72 rounded-full border border-border p-3 sm:max-w-80 sm:p-4 lg:max-w-[480px]">
           <div className="h-full rounded-full bg-surface p-4 sm:p-5">
-            <div className="flex h-full items-center justify-center rounded-full border border-border p-6 text-center">
-              <p className="max-w-44 text-2xl leading-tight font-medium sm:text-3xl">
-                {home.photoPlaceholder}
-              </p>
-            </div>
+            <img
+              src="/images/Etusivu2.jpg"
+              alt={home.photoAlt}
+              className="h-full w-full rounded-full border border-border object-cover object-[50%_35%]"
+            />
           </div>
         </div>
         <figcaption className="text-sm text-secondary">{home.photoCaption}</figcaption>

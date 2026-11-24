@@ -18,7 +18,7 @@ const Navbar = () => {
       <Link to="/" className="text-xl font-semibold">
         {translations.siteName}
       </Link>
-      <div className="flex w-full flex-wrap items-center justify-between gap-x-8 gap-y-4 md:w-auto">
+      <div className="flex w-full flex-wrap items-center justify-between gap-x-8 gap-y-4 md:w-auto lg:w-[28rem]">
         <nav aria-label={translations.navigation.label}>
           <ul className="flex flex-wrap gap-x-6 gap-y-1 text-sm sm:text-base">
             {links.map((link) => (

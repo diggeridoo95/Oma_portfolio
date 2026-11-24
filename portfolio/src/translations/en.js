@@ -20,13 +20,18 @@ export const en = {
   pages: {
     home: {
       title: 'Home',
-      welcome: 'Hello and welcome',
+      welcome: {
+        morning: 'Ready for a new day, friend?',
+        day: 'Good afternoon, champ!',
+        evening: 'Good evening, traveler!',
+        night: 'Zzz.',
+      },
       greeting: "Hi, I'm",
       role: 'Software development student',
       description: 'I develop my skills by building projects and learning through hands-on work. In this portfolio, you can explore my work, the technologies I use and the person behind them.',
       projectsLink: 'My projects',
       contactLink: 'Contact me',
-      photoPlaceholder: 'Profile photo coming soon',
+      photoAlt: 'Eemil Hakala wearing a straw hat.',
       photoCaption: 'The person behind the work.',
     },
     projects: {
@@ -50,12 +55,21 @@ export const en = {
       notFoundDescription: 'No project was found at this address. You can return to the project list using the link below.',
     },
     about: {
-      title: 'About.',
-      description: 'An introduction covering background, interests and skills will appear here.',
+      title: 'About',
+      heading: 'A little about me.',
+      description: 'An introduction to my background, studies and interests will appear here. This text will be replaced with my own introduction later.',
+      projectsLink: 'Explore my projects',
+      photoAlt: 'Eemil Hakala giving a presentation in front of a screen.',
     },
     contact: {
-      title: 'Contact.',
-      description: 'An email address and selected profile links will appear here.',
+      title: 'Contact',
+      heading: "Let's connect.",
+      description: 'You can find my email address and links to my GitHub and LinkedIn profiles here.',
+      emailLabel: 'Email',
+      githubLabel: 'GitHub',
+      linkedInLabel: 'LinkedIn',
+      comingSoon: 'To be added later',
+      projectsLink: 'Back to projects',
     },
     notFound: {
       title: 'Page not found.',

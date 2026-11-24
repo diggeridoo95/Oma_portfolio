@@ -5,6 +5,8 @@ import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Projects from './pages/Projects.jsx'
 import ProjectDetail from './pages/ProjectDetail.jsx'
+import About from './pages/About.jsx'
+import Contact from './pages/Contact.jsx'
 import { LanguageContext } from './context/LanguageContext.js'
 import { projects } from './data/projects.js'
 
@@ -14,23 +16,6 @@ const pages = [
   { path: '/about', key: 'about' },
   { path: '/contact', key: 'contact' },
 ]
-
-const PlaceholderPage = ({ pageKey }) => {
-  const { translations } = useContext(LanguageContext)
-  const page = translations.pages[pageKey]
-
-  return (
-    <section aria-labelledby="page-heading" className="max-w-2xl">
-      <p className="mb-6 text-sm tracking-widest text-champagne uppercase">
-        {translations.placeholderLabel}
-      </p>
-      <h1 id="page-heading" className="text-5xl leading-tight font-semibold tracking-tight sm:text-7xl">
-        {page.title}
-      </h1>
-      <p className="mt-6 text-lg text-secondary">{page.description}</p>
-    </section>
-  )
-}
 
 const NotFoundPage = () => {
   const { translations } = useContext(LanguageContext)
@@ -83,8 +68,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
-          <Route path="/about" element={<PlaceholderPage pageKey="about" />} />
-          <Route path="/contact" element={<PlaceholderPage pageKey="contact" />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

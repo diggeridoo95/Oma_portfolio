@@ -28,9 +28,13 @@ Sovellus toteutetaan selaimessa toimivana React-sovelluksena. Suunnitelmaan ei t
 
 React- ja Vite-pohja sekä Tailwind CSS ovat käytössä. Sovelluksessa on yhteinen navigaatio ja alatunniste sekä reitit etusivulle, projekteihin, esittelyyn ja yhteystietoihin. Tuntemattomille osoitteille näytetään ilmoitus ja linkki etusivulle.
 
-Etusivu esittelee Eemil Hakalan ja sisältää muokattavan esittelytekstiluonnoksen, linkit projekteihin ja yhteystietoihin sekä CSS:llä toteutetun pyöreän profiilikuvan paikkamerkin. Asettelu on leveällä näytöllä kaksipalstainen ja pienellä näytöllä allekkainen.
+Etusivu esittelee Eemil Hakalan ja sisältää muokattavan esittelytekstin, linkit projekteihin ja yhteystietoihin sekä pyöreäksi rajatun profiilikuvan (`portfolio/public/images/Etusivu2.jpg`). Asettelu on leveällä näytöllä kaksipalstainen ja pienellä näytöllä allekkainen.
 
-Projektilista (`/projects`) ja projektisivu (`/projects/:slug`) käyttävät yhteistä `portfolio/src/data/projects.js`-tiedostoa. Mukana on yksi selvästi merkitty esimerkkiprojekti osoitteessa `/projects/example-project`, kuvan paikkamerkki ja esimerkkiteknologiat. Projektisivulla on yksi yhteenveto ja tuki valinnaisille GitHub- ja demolinkeille. Tuntematon projektiosoite näyttää ilmoituksen ja paluulinkin listaan. Esittely- ja yhteystietosivut ovat vielä väliaikaista sisältöä.
+Projektilista (`/projects`) ja projektisivu (`/projects/:slug`) käyttävät yhteistä `portfolio/src/data/projects.js`-tiedostoa. Mukana on yksi selvästi merkitty esimerkkiprojekti osoitteessa `/projects/example-project`, kuvan paikkamerkki ja esimerkkiteknologiat. Projektisivulla on yksi yhteenveto ja tuki valinnaisille GitHub- ja demolinkeille. Tuntematon projektiosoite näyttää ilmoituksen ja paluulinkin listaan.
+
+Esittelysivulla (`/about`) on esittelyteksti vasemmalla ja 4:5-kuvasuhteen suorakulmainen esityskuva (`portfolio/public/images/Esitys.jpg`) oikealla. Puhelimella ne ovat allekkain. Kuvilla on vaihtoehtoiset tekstit suomeksi ja englanniksi. Suomenkielinen esittely on päivitetty, ja englanninkielinen teksti on vielä paikkamerkki.
+
+Yhteystietosivulla (`/contact`) on reunustetut sähköposti-, GitHub- ja LinkedIn-linkkipainikkeet käyttäjän lisäämillä osoitteilla. Painikkeet asettuvat rinnakkain ja rivittyvät pienillä näytöillä. Sähköposti- ja GitHub-kuvakkeet ovat `public/images/`-kansiosta, ja LinkedInin sininen `in`-merkki on tehty HTML/CSS:llä.
 
 Käyttöliittymän oletuskieli on suomi. FI / EN -painikkeet vaihtavat myös saavutettavuustekstit ja välilehden otsikon ilman sivun uudelleenlatausta. Käyttäjän valinta muistetaan selaimen `localStorage`ssa, jos tallennus on käytettävissä. Komponentit, funktiot ja muut koodin tunnisteet nimetään englanniksi. Etusivun linkkien nuolikuvakkeet tulevat Lucide Reactista.
 
