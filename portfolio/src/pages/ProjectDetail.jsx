@@ -36,7 +36,7 @@ const ProjectDetail = () => {
         {labels.backToProjects}
       </Link>
       <header className="mb-8 border-b border-border pb-6">
-        <h1 id="project-heading" className="text-4xl leading-tight font-semibold tracking-tight break-words sm:text-5xl">
+        <h1 id="project-heading" className="text-4xl leading-tight font-semibold tracking-tight wrap-break-words sm:text-5xl">
           {content.title}<span aria-hidden="true" className="text-copper">.</span>
         </h1>
       </header>
@@ -69,8 +69,8 @@ const ProjectDetail = () => {
           )}
         </div>
 
-        <div className="w-full max-w-[480px] lg:justify-self-end">
-          <figure className="relative aspect-[16/10] w-full">
+        <div className="w-full max-w-480px lg:justify-self-end">
+          <figure className="relative aspect-16/10 w-full">
             {image ? (
               <img
                 src={image}

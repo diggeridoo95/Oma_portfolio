@@ -12,7 +12,7 @@ const Navbar = () => {
       <Link to="/" className="text-xl font-semibold">
         {translations.siteName}
       </Link>
-      <div className="flex w-full flex-wrap items-center justify-between gap-x-8 gap-y-4 md:w-auto lg:w-[28rem]">
+      <div className="flex w-full flex-wrap items-center justify-between gap-x-8 gap-y-4 md:w-auto lg:w-28rem">
         <nav aria-label={translations.navigation.label}>
           <ul className="flex flex-wrap gap-x-6 gap-y-1 text-sm sm:text-base">
             {navigation.map((link) => (
@@ -21,8 +21,7 @@ const Navbar = () => {
                   to={link.path}
                   end={link.path === '/'}
                   className={({ isActive }) =>
-                    `inline-block border-b py-3 transition-colors hover:text-copper ${
-                      isActive ? 'border-copper text-copper' : 'border-transparent text-primary'
+                    `inline-block border-b py-3 transition-colors hover:text-copper ${isActive ? 'border-copper text-copper' : 'border-transparent text-primary'
                     }`
                   }
                 >

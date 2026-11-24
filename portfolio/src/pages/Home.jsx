@@ -58,7 +58,7 @@ const Home = () => {
       </div>
 
       <figure className="flex w-full flex-col items-center gap-6">
-        <div className="aspect-square w-full max-w-72 rounded-full border border-border p-3 sm:max-w-80 sm:p-4 lg:max-w-[480px]">
+        <div className="aspect-square w-full max-w-72 rounded-full border border-border p-3 sm:max-w-80 sm:p-4 lg:max-w-480px">
           <div className="h-full rounded-full bg-surface p-4 sm:p-5">
             <img
               src="/images/etusivu.webp"

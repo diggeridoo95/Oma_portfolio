@@ -22,10 +22,10 @@ const ProjectCard = ({ project }) => {
           src={project.image}
           alt={project.imageAlt[language]}
           loading="lazy"
-          className="aspect-[16/10] w-full rounded-lg bg-surface object-contain"
+          className="aspect-16/10 w-full rounded-lg bg-surface object-contain"
         />
       ) : (
-        <div className="flex aspect-[16/10] items-center justify-center rounded-lg bg-surface p-6 text-center text-secondary">
+        <div className="flex aspect-16/10 items-center justify-center rounded-lg bg-surface p-6 text-center text-secondary">
           <p>{labels.imagePlaceholder}</p>
         </div>
       )}
