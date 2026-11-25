@@ -45,6 +45,8 @@ Ulkoasun referenssit ovat `design-references/`-kansiossa. Tailwindin asetukset p
 
 ## FI / EN -kielituki ja tekstien ylläpito
 
+Käyttämättömät avaimet `placeholderLabel`, `pages.home.greeting`, `pages.projects.eyebrow`, `pages.projectDetail.exampleNote` ja `pages.contact.comingSoon` poistettiin molemmista käännöstiedostoista. Kuvapaikkamerkkien, tyhjän projektilistan ja puuttuvan projektin tekstit säilyvät, koska niitä käytetään varatilanteissa. `Footer.jsx` muodostaa tekijänoikeusrivin nykyisestä vuodesta (`new Date().getFullYear()`) ja yhteisestä `siteName`-arvosta. Erillistä `footer.text`-käännöstä ei enää tarvita. Vuosi luetaan moduulin latautuessa, joten se päivittyy sovelluksen uudelleenlatauksella eikä vuosiluvun päivittäminen vaadi koodimuutosta. Päivämäärää ei lueta renderöinnissä eikä sitä varten lisätty tilaa tai ajastinta.
+
 `src/translations/fi.js` ja `en.js` sisältävät samarakenteiset käännösobjektit nimettyinä vienteinä. Navigaatio, sivujen otsikot, painikkeet, saavutettavuustekstit ja henkilökohtaiset esittelytekstit luetaan näistä. Projektikohtainen sisältö on erikseen `src/data/projects.js`-tiedostossa.
 
 `LanguageContext.js` luo Contextin. `LanguageProvider.jsx` säilyttää kielen `useState`-tilassa, ja komponentit lukevat sen `useContext`-kutsulla. Tallennettu `en` avaa englannin; muulloin oletuksena on suomi. Vain käyttäjän tekemä kielivalinta kirjoitetaan `localStorage`en avaimella `portfolio-language`. Tallennuksen estyminen ei estä kielenvaihtoa nykyisen käyttökerran aikana. Effect päivittää dokumentin `lang`-attribuutin.
@@ -59,6 +61,12 @@ Pienet nuolifunktiokomponentit, propsit, `map`, `find`, `useState` ja effectien 
 - [React: useContext](https://react.dev/reference/react/useContext)
 - [React: useEffect](https://react.dev/reference/react/useEffect)
 - [React Router: reititys](https://reactrouter.com/start/declarative/routing)
+
+## Metakuvaus
+
+`portfolio/index.html` sisältää sivuston suomenkielisen `meta name="description"` -kuvauksen jo ennen JavaScriptin käynnistymistä. Teksti kuvaa Eemilin portfoliota, opintoalaa ja harjoittelupaikan hakemista Seinäjoen seudulta. Saman kuvauksen FI/EN-versiot ovat käännösten `metadata.description`-kentässä. `LanguageProvider.jsx`:n olemassa oleva kielieffect päivittää dokumentin kielen lisäksi metakuvauksen `content`-attribuutin. Myös selaimesta muistettu englanninkielinen valinta päivittää kuvauksen sovelluksen käynnistyessä.
+
+Kuvaus on koko sivuston yhteinen; reittikohtaisia metakuvauksia, esirenderöintiä tai jakamisen Open Graph -esikatselukuvaa ei lisätty. HTML:n oletuskuvaus ja `fi.metadata.description` pidetään samoina niitä muokattaessa. Etusivukuvan vaihtoehtoiset tekstit ovat nyt ”Eemil Hakalan muotokuva.” ja ”Portrait of Eemil Hakala.” Englanninkielisen projektilistan alatekstin prepositio korjattiin muotoon ”An overview of some of my projects and how they were built.”
 
 ## Etusivu ja esittely
 
@@ -95,6 +103,8 @@ Tailwind 4:n numeeriset mitoitusluokat käyttävät oletuksena 0,25 remin välia
 | `githubUrl`, `demoUrl`                | Linkin osoite tai `null`                                    |
 | `content.fi/en`                       | `title`, `category`, `description` ja `summary`             |
 
+`content.fi/en.summaryHighlight` on valinnainen korostus, jonka `text` sisältää lauseen ja `paragraphIndex` määrittää kappaleen nollasta alkavalla indeksillä. Jymin Codexin avulla harjoiteltua agenttiavusteista ohjelmistokehitystä koskeva lause on tallennettu tähän kenttään molemmilla kielillä indeksillä 1. `ProjectDetail.jsx` lisää sen toisen kappaleen loppuun `<strong className="font-semibold text-primary">`-elementtinä. Näin lause erottuu puolilihavana ja vaaleampana, kolme kappaletta säilyvät ja muut projektit toimivat ilman korostuskenttää. Tekstiä ei säilytetä kahdessa paikassa eikä projektidataan lisätä HTML:ää.
+
 Projektikortissa kuva on vasemmalla ja teksti oikealla vähintään 768 px:n leveydellä, muuten allekkain. Kuva käyttää 16:10-aluetta, `object-contain`-sovitusta ja `loading="lazy"`-latausta. Projektisivun otsikko on omassa erotinviivalla rajatussa osassaan. Sen alla yhteenveto ja linkit ovat vasemmalla, kuva ja teknologiat oikealla vähintään 1024 px:n leveydellä. Mobiilissa yhteenveto tulee ennen kuvapalstaa.
 
 Kuvapalstan enimmäisleveys on 480 px (`max-w-120` tavallisella juurifontilla). Sen `figure` käyttää luokkia `relative aspect-16/10 w-full`, joten enintään 480 × 300 px:n tila on varattu ennen latautumista. Kuva täyttää kehyksen luokilla `absolute inset-0 h-full w-full object-contain`: sisältö näkyy kokonaan ilman venytystä, ja eri kuvasuhteilla kehykseen jää tyhjää tilaa. Teknologialista ei siirry kuvan latautuessa. Myös puuttuvan kuvan paikkamerkki käyttää samaa kehystä. Taustaa: [MDN:n kuvaelementin mitoitus](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#height).
@@ -102,6 +112,10 @@ Kuvapalstan enimmäisleveys on 480 px (`max-w-120` tavallisella juurifontilla). 
 Projektisivulla on yksi kappaleisiin jaettu yhteenveto. Lyhyt kuvaus ja luokittelu kuuluvat projektilistaan. Ulkoiset lähdekoodi- ja demolinkit näytetään vain, kun osoite on annettu, ja ne avautuvat uuteen välilehteen attribuuteilla `target="_blank"` ja `rel="noopener noreferrer"`. Jym-projektin `demoUrl` on `https://jym-0kwo.onrender.com/`. Projektikortti näyttää Avaa demo / Open demo -linkin Tutustu projektiin / View project -linkin vieressä; projektisivu näyttää sen GitHub-linkin vieressä. Kortin demolinkki käyttää samoja uuden välilehden attribuutteja ja `pages.projectDetail.demoLink`-käännöstä. `flex flex-wrap` sallii linkkien rivittymisen pienellä näytöllä, ja kortin linkin saavutettava nimi sisältää myös projektin nimen. Portfolion sisäiset navigointilinkit toimivat edelleen samassa välilehdessä.
 
 ### Tilamerkit
+
+Avaa demo / Open demo -linkin toteuttaa yhteinen `src/components/DemoLink.jsx`, jota projektikortti ja projektisivu käyttävät. Se saa osoitteen `href`-propsina ja projektin nimen `projectTitle`-propsina. Komponentti lukee käännetyn tekstin `pages.projectDetail.demoLink`-kentästä ja lisää projektin nimen linkin saavutettavaan nimeen. Kutsuva komponentti näyttää linkin vain, kun `demoUrl` on annettu. Tyylit, nuolikuvake, `target="_blank"` ja `rel="noopener noreferrer"` ovat näin yhdessä paikassa.
+
+Linkki erottuu reunustettuna linkkipainikkeena. `border border-copper` antaa kuparinvärisen reunuksen, `rounded-lg` pyöristää kulmat ja `text-primary font-semibold` korostaa tekstiä. `min-h-11` varaa tavallisella juurifontilla vähintään 44 px:n korkeuden. `hover:bg-copper/15` lisää kevyen taustakorostuksen ja `transition-colors` pehmentää värin vaihtumista. Elementti on edelleen tavallinen `<a>`-linkki, ja näppäimistökohdistus käyttää sivuston yhteistä `:focus-visible`-korostusta.
 
 `ProjectCard.jsx` näyttää tilan reunustettuna merkkinä nimen yläpuolella. `inline-flex` asettaa tekstin ja pisteen vierekkäin, `rounded-full` pyöristää merkin ja `bg-surface` erottaa sen kortin taustasta. Teksti säilyy näkyvissä, joten merkitys ei perustu pelkkään väriin. Piste on koristeellinen (`aria-hidden="true"`).
 
@@ -143,7 +157,7 @@ Seitsemän suurta kuvaa pienennettiin Pillow-kirjastolla WebP-muotoon. EXIF-suun
 
 | Nykyinen nimi         | Mitat      | WebP-koko muunnoksen jälkeen |
 | --------------------- | ---------- | ---------------------------- |
-| `etusivu.webp`        | 960 × 960  | 130 142 tavua                |
+| `etusivu.webp`        | 960 × 960  | 247 508 tavua                |
 | `esittely.webp`       | 900 × 1125 | 78 510 tavua                 |
 | `locostprojects.webp` | 1280 × 800 | 233 924 tavua                |
 | `tetrisprojects.webp` | 1280 × 800 | 242 454 tavua                |
@@ -151,7 +165,9 @@ Seitsemän suurta kuvaa pienennettiin Pillow-kirjastolla WebP-muotoon. EXIF-suun
 | `zombieprojects.webp` | 1280 × 800 | 133 654 tavua                |
 | `zombieproject.webp`  | 1280 × 717 | 101 348 tavua                |
 
-Muunnoksessa näiden seitsemän kuvan yhteiskoko pieneni 13 767 507 tavusta 1 076 892 tavuun, noin 92,18 %. Jym-kuvat ja kuvakkeet säilyivät PNG-muodossa. Alkuperäiset säilytettiin `image-originals/`-kansiossa alkuperäisillä nimillä, ja siirrossa tarkistettiin SHA-256-summat. Kansio on ohitettu Gitistä ja sijaitsee Viten `public`-kansion ulkopuolella, joten se ei kopioidu buildiin. Kuvia nimettiin myöhemmin uudelleen yllä olevan käytännön mukaisesti.
+Ensimmäisessä muunnoksessa seitsemän kuvan yhteiskoko pieneni 13 767 507 tavusta 1 076 892 tavuun, noin 92,18 %. Etusivukuva on sittemmin vaihdettu uuteen, joten nämä luvut kuvaavat aiempaa muunnosta. Nykyinen 3024 × 3024 px:n etusivukuva pienennettiin 960 × 960 px:iin WebP-laadulla 88; tiedostokoko pieneni 1 315 130 tavusta 247 508 tavuun eli noin 81,18 %. Kuvasuhde ja sisältö säilytettiin. Nykyisten seitsemän WebP-kuvan yhteiskoko on 1 194 258 tavua. Jym-kuvat ja kuvakkeet ovat edelleen PNG-muodossa.
+
+Uuden etusivukuvan alkuperäinen säilyy tiedostossa `image-originals/etusivu-original.webp`. Käyttämättömät `etusivu1.webp`, `jymm.png`, `Meika.jpg`, `Meika2.jpg` ja `Meika3.jpg` siirrettiin samaan kansioon alkuperäisillä nimillä. Kaikkien kuuden siirretyn tiedoston SHA-256-summat tarkistettiin. Kansio on ohitettu Gitistä ja sijaitsee Viten `public`-kansion ulkopuolella, joten se ei kopioidu buildiin. Myös aiemman muunnoksen alkuperäiset säilyvät siellä. `public/images/` sisältää nyt vain lähdekoodissa käytetyt 11 kuvaa.
 
 ## Yhteystiedot
 
@@ -179,6 +195,8 @@ Animaatiot ovat käytössä vain `prefers-reduced-motion: no-preference` -ehdoll
 
 ## Tarkistukset ja niiden rajat
 
+Julkaisua edeltävässä kuva- ja metatietopäivityksessä lint ja build onnistuivat. Etusivukuvan 960 × 960 px:n koko ja dekoodaus varmistettiin, ja pienennetty kuva tarkistettiin visuaalisesti. Kuuden talteen siirretyn tiedoston tarkistussummat täsmäsivät alkuperäisiin. Lähdekoodin kaikki 11 kuvaviittausta löytyivät oikealla kirjainkoolla sekä public- että build-kansiosta; kummassakaan ei ollut käyttämättömiä kuvia. Metakuvauksen kielieffect testattiin erikseen DOM-simulaatiolla suomeksi ja englanniksi, ja HTML:n oletuskuvauksen vastaavuus suomenkieliseen käännökseen varmistettiin lähteestä ja buildista. Myös FI/EN-käännösavainten yhtenevyys tarkistettiin. Selaimessa tehtävää ulkoasu- ja metatietotarkistusta ei tässä yhteydessä tehty.
+
 Kuvien asettelukorjauksen jälkeen lint ja build onnistuivat. Tuotanto-CSS:stä varmistettiin erikseen `lg:max-w-120`-, `max-w-120`- ja `lg:w-112`-mitoitusten sekä `aspect-4/5`- ja `aspect-16/10`-kuvasuhteiden muodostuminen. Kuvien lopullista sijoittelua ei tämän korjauksen yhteydessä testattu selaimessa.
 
 Koodimuutosten yhteydessä `npm.cmd run lint` ja `npm.cmd run build` ovat onnistuneet `portfolio/`-kansiossa. PowerShellissa käytettiin `npm.cmd`-käynnistintä suorituspolitiikan estämän `npm.ps1`:n sijaan. Näillä tarkistettiin staattiset säännöt ja tuotantobuild, ei selaimen toimintaa. Tässä dokumentaatiopäivityksessä niitä ei tarvitse ajaa uudelleen.
@@ -197,5 +215,7 @@ Dokumentaation päivitys perustuu paikalliseen koodiin. Ulkoisten GitHub-linkkie
 Ennen julkaisua kannattaa tarkistaa selaimessa responsiivinen asettelu, FI/EN-tekstit ja kielivalinnan säilyminen, Tab-navigointi ja ohituslinkki, hitaan kuvalatauksen vaikutus, animaatiot vähennetyn liikkeen asetuksella sekä pitkältä projektilistalta avaaminen ja palaaminen takaisin-/eteenpäin-painikkeilla. Simulaatio ja onnistunut build eivät korvaa näitä selainkokeita.
 
 ## Paikalliset materiaalit
+
+`portfolio/README.md` sisältää linkit juuren varsinaiseen README-tiedostoon ja tähän dokumentaatioon. Viten malliprojektin ohjeet poistettiin siitä. Etusivun nimen tarpeeton `span` poistettiin; nimi on suoraan `h1`-elementissä. Teknologialistoja ei yhdistetty tässä siivouksessa.
 
 `PLAN.md`, `STRUCTURE.md`, `AGENTS.md`, `projektimateriaalia/` ja `image-originals/` ovat juuren `.gitignore`-määrityksissä. Ne voivat olla käytettävissä paikallisesti, mutta niiden mukanaoloa GitHubista kloonatussa projektissa ei pidä olettaa. `portfolio/.gitignore` ohittaa muun muassa riippuvuudet ja buildit; nykyisessä tiedostossa kuvakansiota ei ole ohitettu. Git-seurantaa ei tarkistettu tai muutettu tässä dokumentaatiotyössä.

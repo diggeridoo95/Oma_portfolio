@@ -32,6 +32,10 @@ const LanguageProvider = ({ children }) => {
 
   useEffect(() => {
     document.documentElement.lang = language
+    const description = document.querySelector('meta[name="description"]')
+    if (description) {
+      description.setAttribute('content', translations[language].metadata.description)
+    }
   }, [language])
 
   return (

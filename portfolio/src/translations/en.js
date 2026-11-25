@@ -1,7 +1,9 @@
 export const en = {
   siteName: 'Eemil Hakala',
+  metadata: {
+    description: "Eemil Hakala's portfolio: projects, skills and background of an IT engineering student seeking an internship in the Seinäjoki area.",
+  },
   skipToContent: 'Skip to content',
-  placeholderLabel: 'Placeholder content',
   navigation: {
     label: 'Main navigation',
     home: 'Home',
@@ -14,30 +16,25 @@ export const en = {
     fi: 'Switch to Finnish',
     en: 'Switch to English',
   },
-  footer: {
-    text: '© 2026 Eemil Hakala.',
-  },
   pages: {
     home: {
       title: 'Home',
       welcome: {
-        morning: 'Ready for a new day, friend?',
+        morning: 'Ready for a new day friend?',
         day: 'Good afternoon, champ!',
         evening: 'Good evening, traveler!',
         night: 'Zzz.',
       },
-      greeting: '',
       role: 'IT engineering student',
       description: "I'm an IT engineering student interested in software development and practical problem-solving. In this portfolio, I showcase my projects and skills and share a little about myself.",
       projectsLink: 'My projects',
       contactLink: 'Contact me',
-      photoAlt: 'Eemil Hakala wearing a straw hat.',
+      photoAlt: 'Portrait of Eemil Hakala.',
       photoCaption: 'The person behind the work.',
     },
     projects: {
       title: 'Projects',
-      eyebrow: 'Explore the projects',
-      description: 'An overview to some of my projects and how they were built.',
+      description: 'An overview of some of my projects and how they were built.',
       statuses: {
         inProgress: 'In progress',
         mvpReady: 'MVP ready',
@@ -53,7 +50,6 @@ export const en = {
     projectDetail: {
       backToProjects: 'Back to projects',
       summaryTitle: 'Summary',
-      exampleNote: 'Example content — real project information and a screenshot will be added later.',
       githubLink: 'View source on GitHub',
       demoLink: 'Open demo',
       notFoundTitle: 'Project not found.',
@@ -79,7 +75,6 @@ I'm sociable by nature and get along well with a wide range of people. In my fre
       emailLabel: 'Email',
       githubLabel: 'GitHub',
       linkedInLabel: 'LinkedIn',
-      comingSoon: 'To be added later',
       projectsLink: 'Back to projects',
     },
     notFound: {

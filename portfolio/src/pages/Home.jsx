@@ -31,8 +31,7 @@ const Home = () => {
           {home.welcome[greetingPeriod]}
         </p>
         <h1 id="home-heading" className="text-5xl leading-tight font-semibold tracking-tight sm:text-6xl xl:text-7xl">
-
-          <span className="block">{translations.siteName}</span>
+          {translations.siteName}
         </h1>
         <div aria-hidden="true" className="mt-5 h-0.5 w-20 rounded-full bg-copper" />
         <p className="mt-6 text-xl font-medium text-champagne">{home.role}</p>

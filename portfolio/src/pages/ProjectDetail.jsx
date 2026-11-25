@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { LanguageContext } from '../context/LanguageContext.js'
 import { projects } from '../data/projects.js'
+import DemoLink from '../components/DemoLink.jsx'
 
 const ProjectDetail = () => {
   const { language, translations } = useContext(LanguageContext)
@@ -45,8 +46,18 @@ const ProjectDetail = () => {
           <section aria-labelledby="summary-heading">
             <h2 id="summary-heading" className="text-xl font-semibold">{labels.summaryTitle}</h2>
             <div className="mt-3 space-y-5 leading-relaxed text-secondary">
-              {content.summary.split(/\n\s*\n/).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {content.summary.split(/\n\s*\n/).map((paragraph, index) => (
+                <p key={paragraph}>
+                  {paragraph}
+                  {content.summaryHighlight?.paragraphIndex === index && (
+                    <>
+                      {' '}
+                      <strong className="font-semibold text-primary">
+                        {content.summaryHighlight.text}
+                      </strong>
+                    </>
+                  )}
+                </p>
               ))}
             </div>
           </section>
@@ -60,10 +71,7 @@ const ProjectDetail = () => {
                 </a>
               )}
               {project.demoUrl && (
-                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 py-2 font-medium text-copper underline-offset-4 hover:underline">
-                  {labels.demoLink}
-                  <ArrowUpRight size={18} aria-hidden="true" />
-                </a>
+                <DemoLink href={project.demoUrl} projectTitle={content.title} />
               )}
             </div>
           )}

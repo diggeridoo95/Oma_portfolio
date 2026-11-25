@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { LanguageContext } from '../context/LanguageContext.js'
+import DemoLink from './DemoLink.jsx'
 
 const statusDotClasses = {
   inProgress: 'bg-copper',
@@ -57,16 +58,7 @@ const ProjectCard = ({ project }) => {
             <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
           {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${translations.pages.projectDetail.demoLink}: ${content.title}`}
-              className="inline-flex items-center gap-3 py-2 font-medium text-copper underline-offset-4 hover:underline"
-            >
-              {translations.pages.projectDetail.demoLink}
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
+            <DemoLink href={project.demoUrl} projectTitle={content.title} />
           )}
         </div>
       </div>

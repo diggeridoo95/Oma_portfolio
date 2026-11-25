@@ -1,7 +1,9 @@
 export const fi = {
   siteName: 'Eemil Hakala',
+  metadata: {
+    description: 'Eemil Hakalan portfolio: tietotekniikan insinööriopiskelijan projektit, osaaminen ja esittely. Etsin harjoittelupaikkaa Seinäjoen seudulta.',
+  },
   skipToContent: 'Siirry sisältöön',
-  placeholderLabel: 'Väliaikainen sisältö',
   navigation: {
     label: 'Päänavigaatio',
     home: 'Etusivu',
@@ -14,29 +16,24 @@ export const fi = {
     fi: 'Vaihda suomeksi',
     en: 'Vaihda englanniksi',
   },
-  footer: {
-    text: '© 2026 Eemil Hakala.',
-  },
   pages: {
     home: {
       title: 'Etusivu',
       welcome: {
-        morning: 'Valmiina uuteen päivään, ystävä?',
+        morning: 'Valmiina uuteen päivään ystävä?',
         day: 'Hyvää päivää, Mestari!',
         evening: 'Hyvää iltaa, matkalainen!',
         night: 'Zzz.',
       },
-      greeting: '',
       role: 'Tietotekniikan insinööriopiskelija',
       description: 'Olen tietotekniikan insinööriopiskelija, jota kiinnostavat ohjelmistokehitys ja käytännön ongelmanratkaisu. Tässä portfoliossa esittelen projektejani, osaamistani ja kerron hieman itsestäni.',
       projectsLink: 'Projektini',
       contactLink: 'Ota yhteyttä',
-      photoAlt: 'Eemil Hakala olkihattu päässä.',
+      photoAlt: 'Eemil Hakalan muotokuva.',
       photoCaption: 'Tekijä töiden takana.',
     },
     projects: {
       title: 'Projektit',
-      eyebrow: 'Tutustu projekteihin',
       description: 'Katsaus muutamiin projekteihini ja niiden toteutuksiin.',
       statuses: {
         inProgress: 'Kehitteillä',
@@ -53,7 +50,6 @@ export const fi = {
     projectDetail: {
       backToProjects: 'Takaisin projekteihin',
       summaryTitle: 'Yhteenveto',
-      exampleNote: 'Esimerkkisisältöä — oikean projektin tiedot ja kuva lisätään myöhemmin.',
       githubLink: 'Katso lähdekoodi GitHubissa',
       demoLink: 'Avaa demo',
       notFoundTitle: 'Projektia ei löytynyt.',
@@ -79,7 +75,6 @@ Luonteeltani olen sosiaalinen ja tulen hyvin toimeen erilaisten ihmisten kanssa.
       emailLabel: 'Sähköposti',
       githubLabel: 'GitHub',
       linkedInLabel: 'LinkedIn',
-      comingSoon: 'Lisätään myöhemmin',
       projectsLink: 'Takaisin projekteihin',
     },
     notFound: {

@@ -59,6 +59,10 @@ Implementation and physical testing of the sensor, ESP32 and Raspberry Pi hardwa
 Käyttöliittymä on toteutettu Reactilla ja JavaScriptillä, ja palvelinpuoli käyttää Node.js:ää sekä Expressiä. Käyttäjäkohtaiset ohjelmat tallennetaan PostgreSQL-tietokantaan Sequelize-ORM:n kautta. Sovellus sisältää rekisteröitymisen ja istuntopohjaisen kirjautumisen, ja sen voi käynnistää paikallisesti Dockerilla.
 
 Sovelluksen MVP ja PWA-versio on toteutettu, ja sovellus on julkaistu demona Render-palvelussa. Toteutuneiden harjoitusten, käytettyjen painojen ja kehityksen seuranta kuuluvat myöhempään jatkokehitykseen.`,
+        summaryHighlight: {
+          paragraphIndex: 1,
+          text: 'Sovellusta kehittäessäni olen myös harjoitellut agenttiavusteista ohjelmistokehitystä Codexin avulla.',
+        },
       },
       en: {
         title: 'Jym',
@@ -69,6 +73,10 @@ Sovelluksen MVP ja PWA-versio on toteutettu, ja sovellus on julkaistu demona Ren
 The interface is built with React and JavaScript, while the backend uses Node.js and Express. User-specific plans are stored in PostgreSQL through the Sequelize ORM. The application includes registration and session-based authentication, and it can be run locally with Docker.
 
 The MVP and PWA version have been implemented, and the application is available as a demo hosted on Render. Logging completed workouts, tracking the weights used and monitoring progress are planned for later development.`,
+        summaryHighlight: {
+          paragraphIndex: 1,
+          text: 'While developing the application, I have also practised agent-assisted software development using Codex.',
+        },
       },
     },
   },

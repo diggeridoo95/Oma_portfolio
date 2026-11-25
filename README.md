@@ -7,6 +7,7 @@ Reactilla toteutettu kehittäjäportfolio, jossa esittelen projektejani, osaamis
 Sivustossa on etusivu, projektilista, projektikohtaiset sivut, esittely ja yhteystiedot. Käyttöliittymä mukautuu eri näyttökokoihin. Portfolio toimii selaimessa ilman omaa palvelinpuolta, tietokantaa tai kirjautumista.
 
 - Suomi on oletuskieli. FI / EN -valinta vaihtaa myös saavutettavuustekstit ja välilehden otsikon. Kielivalinta muistetaan selaimessa, jos tallennus on käytettävissä.
+- Sivustolla on suomenkielinen metakuvaus jo HTML:ssä. Kielenvaihto päivittää myös metakuvauksen.
 - Etusivun tervehdys vaihtuu kävijän paikallisen kellonajan mukaan.
 - Projektisivuilla on kappaleisiin jaettu yhteenveto, kuva, teknologiat ja mahdolliset lähdekoodilinkit. Projektien tilat näkyvät tekstin ja värillisen pisteen sisältävinä merkkeinä.
 - Uusi sivu avautuu ylhäältä. Selaimen takaisin- ja eteenpäin-painikkeilla palautetaan vierityskohta ja mahdollisuuksien mukaan aiempi linkkikohdistus nykyisen sivulatauksen aikana.
@@ -74,7 +75,7 @@ Jos PowerShellin suorituspolitiikka estää `npm.ps1`:n, käytä komentojen alus
 
 Projektien kuvanimissä `projects` tarkoittaa projektilistan kuvaa ja `project` projektisivun kuvaa. Etusivu käyttää kuvaa `etusivu.webp` ja esittely kuvaa `esittely.webp`. Suuret kuvat on kevennetty WebP-muotoon; Jym-kuvat ja kuvakkeet ovat PNG-tiedostoja. Projektisivun kuvalle varataan 16:10-kehys jo ennen latautumista.
 
-Alkuperäiset kuvat säilyvät paikallisessa `image-originals/`-kansiossa, joka on ohitettu Gitistä eikä sisälly tuotantobuildiin.
+Nykyinen etusivukuva on kevennetty kokoon 960 × 960 px ja noin 248 kt. Alkuperäiset ja käyttämättömät kuvat säilyvät paikallisessa `image-originals/`-kansiossa, joka on ohitettu Gitistä eikä sisälly tuotantobuildiin. `public/images/` sisältää vain lähdekoodissa käytetyt 11 kuvaa.
 
 ## Tarkistusten tila
 
