@@ -25,11 +25,11 @@ const Contact = () => {
           <img src="/images/email.png" alt="" aria-hidden="true" width={24} height={24} className="h-6 w-6 shrink-0 object-contain brightness-0 invert" />
           {contact.emailLabel}
         </a>
-        <a href="https://github.com/diggeridoo95" className={linkClassName}>
+        <a href="https://github.com/diggeridoo95" target="_blank" rel="noopener noreferrer" className={linkClassName}>
           <img src="/images/github.png" alt="" aria-hidden="true" width={24} height={24} className="h-6 w-6 shrink-0 object-contain brightness-0 invert" />
           {contact.githubLabel}
         </a>
-        <a href="https://www.linkedin.com/in/hakalaeemil/" className={linkClassName}>
+        <a href="https://www.linkedin.com/in/hakalaeemil/" target="_blank" rel="noopener noreferrer" className={linkClassName}>
           <span aria-hidden="true" className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0a66c2] text-sm leading-none font-bold tracking-tighter text-white">
             in
           </span>

@@ -18,11 +18,11 @@ Sivustossa on etusivu, projektilista, projektikohtaiset sivut, esittely ja yhtey
 | Projekti | Tila | Aihe | Lähdekoodi |
 | --- | --- | --- | --- |
 | Locost-telemetria | Kehitteillä | Kolmen tietotekniikan opiskelijan toteuttama telemetriajärjestelmä SeAMK:n LoCost-kilpa-autoon | [GitHub](https://github.com/diggeridoo95/locost_telemetry) |
-| Jym | MVP valmis | Treeniohjelmien suunnitteluun ja hallintaan tarkoitettu verkkosovellus | [GitHub](https://github.com/diggeridoo95/jym_workout_tracker_1) |
+| Jym | MVP valmis | Treeniohjelmien hallinnan PWA-sovellus; demo julkaistu Renderissä | [GitHub](https://github.com/diggeridoo95/jym_workout_tracker_1) · [Demo](https://jym-0kwo.onrender.com/) |
 | Zombie Island | Prototyyppi | Itsenäisesti toteutettu Unity-selviytymispeli | — |
 | Tetris Overwhelmed | Valmis | Neljän hengen kurssiprojekti, jossa harjoiteltiin tiimityötä ja sprinttityöskentelyä | [GitHub](https://github.com/diggeridoo95/OhjelmistoProjekti_Tetris) |
 
-Portfoliossa Jym-sovelluksen PWA-versio ja julkaisu kuvataan jatkokehityksen tavoitteiksi. Locostissa erotetaan nykyinen ohjelmisto keskeneräisestä laitteistointegraatiosta. Auton rakentamisesta vastaavat SeAMK:n auto- ja työkonetekniikan opiskelijat.
+Jym-sovelluksen PWA-versio on toteutettu ja demoversio julkaistu Render-palvelussa. Avaa demo -linkki löytyy sekä projektikortista että projektisivulta GitHub-linkin vierestä. Toteutuneiden harjoitusten seuranta kuuluu edelleen jatkokehitykseen. Locostissa erotetaan nykyinen ohjelmisto keskeneräisestä laitteistointegraatiosta. Auton rakentamisesta vastaavat SeAMK:n auto- ja työkonetekniikan opiskelijat.
 
 ## Työkalut
 

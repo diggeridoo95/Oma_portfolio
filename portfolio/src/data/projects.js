@@ -48,27 +48,27 @@ Implementation and physical testing of the sensor, ESP32 and Raspberry Pi hardwa
     },
     technologies: ['React', 'JavaScript', 'Node.js', 'Express', 'PostgreSQL', 'Sequelize', 'Docker'],
     githubUrl: 'https://github.com/diggeridoo95/jym_workout_tracker_1',
-    demoUrl: null,
+    demoUrl: 'https://jym-0kwo.onrender.com/',
     content: {
       fi: {
         title: 'Jym',
         category: 'Treeniohjelmien hallinta',
-        description: 'Treeniohjelmien suunnitteluun ja hallintaan tarkoitettu verkkosovellus. Käyttäjä voi rakentaa viikko-ohjelman, määrittää liikkeet sarjoineen ja toistoineen sekä valita aktiivisen treeniohjelman.',
+        description: 'Treeniohjelmien suunnitteluun ja hallintaan tarkoitettu PWA-sovellus, jonka demoversio on julkaistu Render-palvelussa. Käyttäjä voi rakentaa viikko-ohjelman, määrittää liikkeet sarjoineen ja toistoineen sekä valita aktiivisen treeniohjelman.',
         summary: `Jym on kuntosaliharjoittelun suunnitteluun tarkoitettu verkkosovellus. Käyttäjä voi luoda omia treeniohjelmia, jakaa viikon treeni- ja lepopäiviin sekä määrittää liikkeiden sarjat ja toistot. Aktiiviseksi valittu ohjelma näkyy sovelluksen etusivulla.
 
 Käyttöliittymä on toteutettu Reactilla ja JavaScriptillä, ja palvelinpuoli käyttää Node.js:ää sekä Expressiä. Käyttäjäkohtaiset ohjelmat tallennetaan PostgreSQL-tietokantaan Sequelize-ORM:n kautta. Sovellus sisältää rekisteröitymisen ja istuntopohjaisen kirjautumisen, ja sen voi käynnistää paikallisesti Dockerilla.
 
-Sovelluksen MVP on valmis. Seuraavana tavoitteena on toteuttaa asennettava PWA-versio ja julkaista sovellus käyttöön. Toteutuneiden harjoitusten, käytettyjen painojen ja kehityksen seuranta kuuluvat myöhempään jatkokehitykseen.`,
+Sovelluksen MVP ja PWA-versio on toteutettu, ja sovellus on julkaistu demona Render-palvelussa. Toteutuneiden harjoitusten, käytettyjen painojen ja kehityksen seuranta kuuluvat myöhempään jatkokehitykseen.`,
       },
       en: {
         title: 'Jym',
         category: 'Workout plan management',
-        description: 'A web application for creating and managing workout plans. Users can build a weekly schedule, define exercises with sets and repetitions, and choose an active workout plan.',
+        description: 'A progressive web app for creating and managing workout plans, with a demo version hosted on Render. Users can build a weekly schedule, define exercises with sets and repetitions, and choose an active workout plan.',
         summary: `Jym is a web application for planning gym workouts. Users can create their own workout plans, divide the week into training and rest days, and define sets and repetitions for each exercise. The selected active plan is displayed on the home page.
 
 The interface is built with React and JavaScript, while the backend uses Node.js and Express. User-specific plans are stored in PostgreSQL through the Sequelize ORM. The application includes registration and session-based authentication, and it can be run locally with Docker.
 
-The MVP is ready. The next goal is to create an installable PWA version and publish the application. Logging completed workouts, tracking the weights used and monitoring progress are planned for later development.`,
+The MVP and PWA version have been implemented, and the application is available as a demo hosted on Render. Logging completed workouts, tracking the weights used and monitoring progress are planned for later development.`,
       },
     },
   },

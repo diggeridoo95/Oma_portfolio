@@ -47,14 +47,28 @@ const ProjectCard = ({ project }) => {
             </li>
           ))}
         </ul>
-        <Link
-          to={`/projects/${project.slug}`}
-          aria-label={`${labels.viewProject}: ${content.title}`}
-          className="mt-6 inline-flex items-center gap-3 py-2 font-medium text-copper underline-offset-4 hover:underline"
-        >
-          {labels.viewProject}
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </Link>
+        <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+          <Link
+            to={`/projects/${project.slug}`}
+            aria-label={`${labels.viewProject}: ${content.title}`}
+            className="inline-flex items-center gap-3 py-2 font-medium text-copper underline-offset-4 hover:underline"
+          >
+            {labels.viewProject}
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${translations.pages.projectDetail.demoLink}: ${content.title}`}
+              className="inline-flex items-center gap-3 py-2 font-medium text-copper underline-offset-4 hover:underline"
+            >
+              {translations.pages.projectDetail.demoLink}
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+          )}
+        </div>
       </div>
     </article>
   )

@@ -37,7 +37,7 @@ export const en = {
     projects: {
       title: 'Projects',
       eyebrow: 'Explore the projects',
-      description: 'An overview of my projects and how they were built.',
+      description: 'An overview to some of my projects and how they were built.',
       statuses: {
         inProgress: 'In progress',
         mvpReady: 'MVP ready',

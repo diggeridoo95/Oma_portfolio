@@ -54,13 +54,13 @@ const ProjectDetail = () => {
           {(project.githubUrl || project.demoUrl) && (
             <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
               {project.githubUrl && (
-                <a href={project.githubUrl} className="inline-flex items-center gap-2 py-2 font-medium text-copper underline-offset-4 hover:underline">
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 py-2 font-medium text-copper underline-offset-4 hover:underline">
                   {labels.githubLink}
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </a>
               )}
               {project.demoUrl && (
-                <a href={project.demoUrl} className="inline-flex items-center gap-2 py-2 font-medium text-copper underline-offset-4 hover:underline">
+                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 py-2 font-medium text-copper underline-offset-4 hover:underline">
                   {labels.demoLink}
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </a>
@@ -69,7 +69,7 @@ const ProjectDetail = () => {
           )}
         </div>
 
-        <div className="w-full max-w-480px lg:justify-self-end">
+        <div className="w-full max-w-120 lg:justify-self-end">
           <figure className="relative aspect-16/10 w-full">
             {image ? (
               <img

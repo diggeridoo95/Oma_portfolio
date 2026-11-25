@@ -37,7 +37,7 @@ export const fi = {
     projects: {
       title: 'Projektit',
       eyebrow: 'Tutustu projekteihin',
-      description: 'Katsaus projekteihini ja niiden toteutuksiin.',
+      description: 'Katsaus muutamiin projekteihini ja niiden toteutuksiin.',
       statuses: {
         inProgress: 'Kehitteillä',
         mvpReady: 'MVP valmis',
